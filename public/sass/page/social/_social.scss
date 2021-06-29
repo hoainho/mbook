@@ -1,0 +1,228 @@
+.social {
+    &__item {
+        margin: 10px 0;
+
+        padding: 10px;
+        background-color: var(--clr-bcg-grey);
+        border-radius: 2px;
+        width: 100%;
+    }
+    &__header {
+        border-bottom: 0.5px solid var(--clr-boder);
+        padding-bottom: 10px;
+        &-item {
+            padding: 14px 20px;
+            border-bottom: 2px solid var(--clr-primary);
+            i {
+                font-size: 2rem;
+                color: var(--clr-font);
+            }
+        }
+    }
+    &__post {
+        display: flex;
+        flex-direction: row;
+        margin: 10px 0;
+        padding: 10px;
+        background-color: var(--clr-bcg-low);
+        border-radius: 10px;
+        width: 100%;
+        &-avatar {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            &-wrapper {
+                width: 30px;
+                height: 30px;
+                &-pic {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                }
+            }
+        }
+        &-content {
+            flex: 20;
+            padding: 0 5px;
+            &-author {
+                &-name {
+                    &-item {
+                        i {
+                        }
+                    }
+                }
+                &-time {
+                    color: var(--clr-font);
+                }
+            }
+            &-container {
+                &-text {
+                    color: var(--clr-font);
+                }
+                &-image {
+                    border-radius: 10px;
+                    &-pic {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+    &__comments {
+        padding: 10px;
+        background-color: var(--clr-bcg-grey);
+        border-radius: 20px;
+        width: 100%;
+    }
+    &__upload {
+        display: flex;
+        padding: 25px 10px;
+        margin-bottom: 25px;
+        background: var(--clr-bcg-low);
+        border-radius: 10px;
+        &-avatar {
+            flex: 1;
+            width: 100%;
+            justify-content: center;
+            display: flex;
+            &-pic {
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                border-radius: 50%;
+            }
+        }
+        &-content {
+            flex: 9;
+            &-input {
+                font-size: 1.5rem;
+                width: 100%;
+                height: auto;
+                box-sizing: border-box;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                transition: all 0.3s;
+                color: var(--clr-font);
+            }
+            &-control {
+                display: flex;
+                display: none;
+                padding: 10px 5px;
+                margin: 10px 0;
+                border-top: 1px solid var(--clr-boder);
+                border-bottom: 1px solid var(--clr-boder);
+                justify-content: space-between;
+                align-items: center;
+                &-subTitle {
+                    &-text {
+                        color: var(--clr-font);
+                        margin: 0 !important;
+                    }
+                }
+                &-icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    span {
+                        padding: 7px;
+                        margin: 0 2px;
+                        width: 30px;
+                        height: 30px;
+                        cursor: pointer;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        i {
+                            color: var(--clr-primary);
+                            border-radius: 50%;
+                            background-color: var(--clr-bcg-icon);
+                            padding: 10px;
+                        }
+                    }
+                }
+            }
+            &-func {
+                display: flex;
+                display: none;
+                flex-direction: row;
+                justify-content: flex-end;
+                padding-top: 10px;
+                &-cancle {
+                    background-color: var(--clr-font);
+                    color: var(--clr-font-oop);
+                    width: 100px;
+                    height: 40px;
+                    display: flex;
+                    padding: 10px 20px;
+                    margin: 0 2.5px;
+                    border-radius: 30px;
+                    cursor: pointer;
+                    justify-content: center;
+                    align-items: center;
+                    border: none;
+                    outline: none;
+                }
+                &-upload {
+                    background-color: var(--clr-primary);
+                    color: var(--clr-font);
+                    width: 100px;
+                    height: 40px;
+                    display: flex;
+                    padding: 10px 20px;
+                    margin: 0 2.5px;
+                    border-radius: 30px;
+                    justify-content: center;
+                    cursor: pointer;
+                    align-items: center;
+                    border: none;
+                    outline: none;
+                }
+            }
+        }
+    }
+}
+.MuiGrid-align-items-xs-center {
+    background: var(--clr-primary) !important;
+    background: radial-gradient(circle, var(--clr-primary) 0%, var(--clr-bcg-low) 100%) !important;
+    width: auto !important;
+    height: 195px;
+    border-radius: 5px;
+    filter: brightness(0.5);
+}
+.MuiDialog-paperWidthSm {
+    max-width: 485px !important;
+}
+.MuiDialog-paper {
+    overflow: hidden !important;
+}
+.MuiGrid-item {
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.carousel-initialized,
+.carousel-row,
+.carousel-item {
+    height: 450px !important;
+    div {
+        height: 450px !important;
+    }
+}
+.MuiGrid-justify-xs-center {
+    transition: all 0.5s;
+    transform: scale(1.2);
+    img {
+        padding: 54px 39px;
+    }
+    &:hover {
+        transform: scale(1.5);
+        box-shadow: 16px 16px 7px -18px rgba(0, 0, 0, 50%);
+        transition: all 0.5s;
+    }
+}
+.MuiGrid-grid-md-6 {
+    margin: 4px !important;
+    max-width: 47% !important;
+    flex-basis: 47% !important;
+}

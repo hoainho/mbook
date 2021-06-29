@@ -1,0 +1,271 @@
+.btn-popUpCustom {
+    background-size: 200%;
+    display: inline-block;
+    padding: 0.375rem 2rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: none;
+    min-height: 2.5rem;
+    border-radius: 30px;
+    text-align: center;
+    font-weight: normal;
+    outline: none;
+    text-decoration: none;
+    cursor: pointer;
+    color: #fff;
+    box-shadow: 0 1px 2px 0 rgba(85, 97, 226, 50%);
+    background-color: var(--clr-primary);
+    background-image: linear-gradient(
+        90deg,
+        var(--clr-primary) 0,
+        var(--clr-primary-light) 50%,
+        var(--clr-primary) 100%
+    );
+    box-shadow: 0 1px 2px 0 rgba(var(--clr-primary), 0.5);
+    color: #fff;
+    &:hover {
+        background-color: #9c51e9;
+        box-shadow: 0 1px 3px 0 rgba(var(--clr-primary), 0.5);
+        color: #fff;
+        background-color: #8189e9;
+        background-position: right center;
+        box-shadow: 0 1px 3px 0 rgba(var(--clr-primary-light), 50%);
+        transition: all 750ms ease;
+    }
+}
+.buttons {
+    text-align: center;
+    border-radius: 30px;
+    width: 100%;
+}
+.blob-btn {
+    $numOfBlobs: 4;
+    z-index: 1;
+    position: relative;
+    padding: 10px 20px;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--clr-primary);
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    transition: color 0.5s;
+    cursor: pointer;
+    border-radius: 30px;
+    i {
+        padding: 0 5px;
+    }
+    @include tablet {
+        padding: 5px 10px;
+        font-size: 1.5rem;
+    }
+    &:before {
+        content: "";
+        z-index: 1;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border: 2px solid var(--clr-primary);
+        border-radius: 30px;
+    }
+
+    &:after {
+        content: "";
+        z-index: -2;
+        position: absolute;
+        left: 2px * 1.5;
+        top: 2px * 1.5;
+        width: 100%;
+        height: 100%;
+
+        transition: all 0.3s 0.2s;
+        border-radius: 30px;
+    }
+
+    &:hover {
+        color: var(--clr-bcg-low);
+        border-radius: 30px;
+
+        &:after {
+            transition: all 0.3s;
+            left: 0;
+            top: 0;
+            border-radius: 30px;
+        }
+    }
+
+    &__inner {
+        z-index: -1;
+        overflow: hidden;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 30px;
+        background: var(--clr-bcg-low);
+    }
+
+    // additional container created, because in FF blobs are breaking overflow:hidden of element with svg gooey filter
+    &__blobs {
+        position: relative;
+        display: block;
+        height: 100%;
+        filter: url("#goo");
+    }
+
+    &__blob {
+        position: absolute;
+        top: 2px;
+        width: 120% / $numOfBlobs;
+        height: 100%;
+        background: var(--clr-primary);
+        border-radius: 100%;
+        transform: translate3d(0, 150%, 0) scale(1.7);
+        transition: transform 0.45s;
+
+        @supports (filter: url("#goo")) {
+            transform: translate3d(0, 150%, 0) scale(1.4);
+        }
+
+        @for $i from 1 through $numOfBlobs {
+            &:nth-child(#{$i}) {
+                left: ($i - 1) * (120% / $numOfBlobs);
+                transition-delay: ($i - 1) * 0.08s;
+            }
+        }
+
+        .blob-btn:hover & {
+            transform: translateZ(0) scale(1.7);
+
+            @supports (filter: url("#goo")) {
+                transform: translateZ(0) scale(1.4);
+            }
+        }
+    }
+}
+
+.btn-popUp {
+    &:link,
+    &:visited {
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 15px 40px;
+        display: inline-block;
+        border-radius: 100px;
+        transition: all 0.2s;
+        position: absolute;
+    }
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    &-white {
+        background-color: #fff;
+        color: #777;
+    }
+
+    &::after {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        border-radius: 100px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        transition: all 0.4s;
+    }
+
+    &-white::after {
+        background-color: #fff;
+    }
+
+    &:hover::after {
+        transform: scaleX(1.4) scaleY(1.6);
+        opacity: 0;
+    }
+
+    &-animated {
+        animation: moveInBottom 5s ease-out;
+        animation-fill-mode: backwards;
+    }
+}
+@mixin button($bcolor, $url, $x1, $y1, $bor, $col) {
+    background: $bcolor;
+    -webkit-mask: url($url);
+    mask: url($url);
+    -webkit-mask-size: $x1 $y1;
+    mask-size: $x1 $y1;
+    border: $bor;
+    color: $col;
+}
+
+.button-custom-1 {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    overflow: hidden;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    font-size: 2rem;
+    transition: 0.5s;
+    letter-spacing: 1px;
+    border: none;
+    outline: none;
+    button {
+        width: 100%;
+        height: 100%;
+        font-family: "Lato", sans-serif;
+        font-weight: 300;
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+        font-weight: bold;
+        border: none;
+        outline: none;
+        @include button(
+            var(--clr-bcg-low),
+            "https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/nature-sprite.png",
+            2300%,
+            100%,
+            none,
+            var(--clr-primary)
+        );
+        cursor: pointer;
+        -webkit-animation: ani2 0.7s steps(22) forwards;
+        animation: ani2 0.7s steps(22) forwards;
+
+        &:hover {
+            -webkit-animation: ani 0.7s steps(22) forwards;
+            animation: ani 0.7s steps(22) forwards;
+        }
+    }
+}
+
+.mas {
+    position: absolute;
+    color: var(--clr-font-oop);
+    text-align: center;
+    width: 100%;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    position: absolute;
+    font-size: 1.5rem;
+    margin-top: 13px;
+    overflow: hidden;
+    font-weight: bold;
+    border: none;
+    outline: none;
+}

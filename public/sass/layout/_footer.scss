@@ -1,0 +1,225 @@
+// footer
+
+.new_footer_top {
+    padding: 0 0 270px;
+    position: relative;
+    overflow-x: hidden;
+}
+.new_footer_area .footer_bottom {
+    padding: 5px 10px;
+    padding-bottom: 50px;
+}
+.footer_bottom {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    color: #7f88a6;
+    padding: 27px 0px;
+    display: flex;
+    justify-content: space-between;
+    .text-right {
+        text-align: right;
+    }
+}
+
+.new_footer_top .footer_bg {
+    position: absolute;
+    bottom: 0;
+    background: url("http://droitthemes.com/html/saasland/img/seo/footer_bg.png") no-repeat scroll center 0;
+    width: 100%;
+    height: 266px;
+}
+
+.new_footer_top .footer_bg .footer_bg_one {
+    background: url("https://1.bp.blogspot.com/-mvKUJFGEc-k/XclCOUSvCnI/AAAAAAAAUAE/jnBSf6Fe5_8tjjlKrunLBXwceSNvPcp3wCLcBGAsYHQ/s1600/volks.gif")
+        no-repeat center center;
+    width: 330px;
+    height: 105px;
+    background-size: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 30%;
+    -webkit-animation: myfirst 22s linear infinite;
+    animation: myfirst 22s linear infinite;
+}
+
+.new_footer_top .footer_bg .footer_bg_two {
+    background: url("https://1.bp.blogspot.com/-hjgfxUW1o1g/Xck--XOdlxI/AAAAAAAAT_4/JWYFJl83usgRFMvRfoKkSDGd--_Sv04UQCLcBGAsYHQ/s1600/cyclist.gif")
+        no-repeat center center;
+    width: 88px;
+    height: 100px;
+    background-size: 100%;
+    bottom: 0;
+    left: 38%;
+    position: absolute;
+    -webkit-animation: myfirst 30s linear infinite;
+    animation: myfirst 30s linear infinite;
+}
+
+/*************footer End*****************/
+.footerMain {
+    padding: 0 10px;
+}
+.footer {
+    .footer-wrap {
+        position: relative;
+        padding: 50px 10px;
+        @include mobie {
+            padding: 10px 0;
+        }
+    }
+    h1 {
+        padding: 10px 0;
+        margin-bottom: 15px;
+        color: var(--clr-primary);
+
+        @include mobie {
+            font-size: 1.6rem;
+            padding: 5px 0;
+            padding-bottom: 5px;
+        }
+    }
+    &__left {
+        padding: 10px 0;
+        .description {
+            display: block;
+            padding-right: 55px;
+            padding-bottom: 10px;
+            color: var(--clr-font);
+            @include mobie {
+                font-size: 1rem;
+                padding: 0 15px;
+            }
+        }
+        &-social {
+            display: flex;
+
+            justify-content: left;
+            a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                font-size: 2rem;
+                height: 50px;
+                width: 50px;
+                background-color: var(--clr-primary);
+                border-radius: 50%;
+                margin-top: 10px;
+                margin-right: 15px;
+                transition: 0.3s;
+                text-align: center;
+                color: var(--clr-font-oop);
+                &:hover {
+                    background-color: var(--clr-primary-light);
+                }
+                @include mobie {
+                    font-size: 1.6rem;
+                    margin-right: 5px;
+                    height: 40px;
+                    width: 40px;
+                }
+            }
+            @include mobie {
+                justify-content: center;
+            }
+        }
+        @include mobie {
+            text-align: center;
+        }
+    }
+    &__center {
+        padding: 10px 0;
+        color: var(--clr-font);
+        div {
+            @include mobie {
+                display: flex;
+                justify-content: center;
+            }
+        }
+        span {
+            margin-right: 10px;
+            color: var(--clr-primary);
+            @include mobie {
+                font-size: 1rem;
+                display: block;
+            }
+        }
+        @include mobie {
+            overflow: auto;
+            font-size: 1rem;
+        }
+        @include mobie {
+            text-align: center;
+        }
+    }
+    &__right {
+        padding: 10px 0;
+        color: var(--clr-font);
+        &-img {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            img {
+                height: 100px;
+                @include mobie {
+                    height: 60px;
+                }
+            }
+            @include mobie {
+                margin-top: 5px;
+            }
+        }
+        &-payment {
+            padding-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        &-form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+            input {
+                padding: 5px 10px;
+                // background-color: $color-primary;
+                border: 2px solid var(--clr-boder);
+                height: 40px;
+                width: 100%;
+                outline: none;
+                border-radius: 5px;
+                color: var(--clr-boder);
+                @include mobie {
+                    height: 30px;
+                    width: 75%;
+                    font-size: 1.4rem;
+                }
+            }
+            button {
+                width: 30%;
+                padding: 10px;
+                margin-top: 10px;
+                background-color: var(--clr-primary);
+                border-radius: 10px;
+                cursor: pointer;
+                outline: none;
+                transition: 0.2s all;
+                color: var(--clr-font-oop);
+                &:hover {
+                    background-color: var(--clr-primary-light);
+                }
+                @include mobie {
+                    width: 25%;
+                    padding: 5px;
+                }
+            }
+        }
+        span {
+        }
+        @include mobie {
+            text-align: center;
+            font-size: 1rem;
+        }
+    }
+}

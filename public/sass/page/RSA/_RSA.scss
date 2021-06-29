@@ -1,0 +1,43 @@
+.RSA {
+    &__resutl-list {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        &-item {
+            padding: 0 10px;
+        }
+    }
+    &__row {
+        display: flex;
+        flex-direction: row;
+    }
+    &__col {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+    &__widthFull {
+        width: 100%;
+    }
+    &__input:focus ~ &__inputFocus::before {
+        top: 42.5% !important;
+        left: 2.5% !important;
+        width: 86% !important;
+    }
+    &__input:focus ~ &__inputFocus::after {
+        bottom: 11.5% !important;
+        width: 86% !important;
+        right: 11.8% !important;
+    }
+    &__input:focus > &__inputFocus-hori::before {
+        height: 45% !important;
+        top: 42.5% !important;
+        left: 2.3% !important;
+    }
+    &__input:focus > &__inputFocus-hori::after {
+        right: 11.5% !important;
+        height: 45% !important;
+        bottom: 11.5% !important;
+    }
+}

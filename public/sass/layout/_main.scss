@@ -1,0 +1,315 @@
+.over {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    display: none;
+    animation: opa 0.3s linear;
+    &--active {
+        display: block;
+    }
+}
+//ANT - DESIGN
+
+//button
+.ant-btn {
+    background-color: var(--clr-primary) !important;
+    &:active,
+    &:focus {
+        color: var(--clr-font-oop) !important;
+        background: var(--clr-primary) !important;
+        border-color: var(--clr-primary) !important;
+    }
+}
+.ant-btn-primary {
+    color: var(--clr-font-oop) !important;
+    background: var(--clr-primary) !important;
+    border-color: var(--clr-primary) !important;
+    // text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    // -webkit-box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+    // box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+}
+//text
+.ant-modal-content {
+    margin: 50px 0;
+    height: 100%;
+    background-color: var(--clr-boder) !important;
+}
+.ant-modal-title {
+    text-transform: uppercase;
+    text-align: center;
+    font-family: serif;
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+}
+.ant-row-space-around {
+    margin: 0 !important;
+}
+// carousel
+.ant-carousel .slick-dots li button {
+    background: var(--clr-font) !important;
+    opacity: 0.4 !important;
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+    opacity: 1 !important;
+    background: var(--clr-primary) !important;
+}
+
+//action
+.ant-select-show-search {
+    width: 92% !important;
+}
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+    border-color: var(--clr-primary) !important;
+    border-right-width: 1px !important;
+    box-shadow: none !important;
+}
+
+.ant-select-selector {
+    padding: 5px 12px !important;
+    border-radius: 10px;
+}
+.ant-upload-list-picture-card-container {
+    width: 100% !important;
+    height: 100% !important;
+}
+.ant-select-multiple .ant-select-selection-placeholder {
+    left: 20px !important;
+}
+//modal
+.ant-modal-header {
+    padding: 35px 24px !important;
+    background-color: var(--clr-boder) !important;
+}
+.ant-modal-title {
+    color: var(--clr-primary) !important;
+}
+.ant-table-row-expand-icon:focus,
+.ant-table-row-expand-icon:hover {
+    color: var(--clr-primary) !important;
+}
+.ant-pagination-item-active:hover a {
+    color: var(--clr-primary) !important;
+}
+.ant-pagination-item-active a {
+    color: var(--clr-primary) !important;
+}
+.ant-pagination-item-active {
+    background: var(--clr-font-oop) !important;
+    color: var(--clr-primary) !important;
+    border-color: var(--clr-primary) !important;
+}
+a {
+    color: var(--clr-font) !important;
+}
+a:hover {
+    color: var(--clr-primary) !important;
+}
+.ant-table-column-sorter-up,
+.ant-table-column-sorter-down {
+    svg {
+        color: var(--clr-font) !important;
+    }
+}
+.ant-table-column-sorter-up.active,
+.ant-table-column-sorter-down.active {
+    svg {
+        color: var(--clr-primary) !important;
+    }
+}
+.ant-input-affix-wrapper {
+    background-color: var(--clr-bcg-low) !important;
+    .anticon-gift {
+        color: var(--clr-font) !important;
+    }
+}
+.ant-input-affix-wrapper-lg {
+    border-radius: 30px !important;
+    &:hover {
+        border-color: var(--clr-primary) !important;
+    }
+}
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+    border-color: var(--clr-primary) !important;
+    border-right-width: 1px !important;
+    outline: 0;
+    -webkit-box-shadow: 0 0 2px 0.5px var(--clr-primary) !important;
+    box-shadow: 0 0 2px 0.5px var(--clr-primary) !important;
+    .anticon-gift {
+        color: var(--clr-primary) !important;
+        &:hover {
+            color: var(--clr-primary) !important;
+        }
+    }
+}
+
+//input
+.ant-input-affix-wrapper-lg {
+    margin-right: 3px !important;
+}
+.ant-input-lg {
+    padding: 0 10px !important;
+    color: var(--clr-font) !important;
+    background-color: var(--clr-bcg-low) !important;
+}
+
+//icon
+.anticon {
+    // color: var(--clr-font) !important;
+}
+.anticon-minus-circle {
+    color: var(--clr-font) !important;
+}
+.anticon-gift {
+    color: var(--clr-font) !important;
+    &:hover {
+        color: var(--clr-primary) !important;
+    }
+}
+.ant-modal-close-icon {
+    color: var(--clr-primary) !important;
+}
+.ant-empty-description {
+    color: var(--clr-font) !important;
+}
+//.filter-price
+.filter-price {
+    color: var(--clr-font) !important;
+}
+//Cart
+.ant-table {
+    background-color: var(--clr-boder) !important;
+}
+.ant-table-thead .ant-table-cell {
+    color: var(--clr-primary) !important;
+    background-color: var(--clr-bcg-grey) !important;
+    text-align: center;
+    border-bottom: 0.5px solid var(--clr-boder) !important  ;
+}
+.ant-table-tbody .ant-table-cell {
+    color: var(--clr-font) !important;
+    background-color: var(--clr-bcg) !important;
+    text-align: center;
+    border-bottom: 0.5px solid var(--clr-boder) !important  ;
+}
+.ant-table-tbody .ant-table-cell:nth-child(2) {
+    text-align: start;
+}
+.ant-table-row-expand-icon-collapsed,
+.anticon-gift {
+    color: var(--clr-bcg-btn) !important;
+    &:focus {
+        color: var(--clr-primary) !important;
+    }
+}
+//cart sub
+
+//pagination
+.anticon-left,
+.anticon-right {
+    svg {
+        color: var(--clr-primary) !important;
+    }
+}
+.ant-pagination-options {
+    display: none !important;
+}
+.ant-pagination-item a {
+    color: var(--clr-font) !important;
+}
+// TABLET RESPONSIVE
+.ant-modal-content {
+    margin: 50px 35px 50px 0;
+}
+//Notification ERROR ANTD
+.ant-tooltip-content {
+    display: none !important;
+}
+.ant-upload-list-item-error {
+    border: 1px solid var(--clr-primary) !important;
+}
+///////////////////////////////////////////////
+.over-absolute {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    display: none;
+    animation: opa 0.3s linear;
+    &--active {
+        display: block;
+    }
+}
+.scrollToTop {
+    position: fixed;
+    // bottom: 20px;
+    right: 50px;
+    padding: 10px;
+    height: 50px;
+    width: 50px;
+    font-size: 3rem;
+    text-align: center;
+    color: var(--clr-primary);
+    cursor: pointer;
+    animation: scrollToTop 1.5s infinite;
+    transition: all 0.2s;
+    bottom: -15%;
+    &--active {
+        bottom: 20px;
+    }
+    &:hover {
+        font-size: 3.5rem;
+        color: var(--clr-primary-light);
+    }
+    @include mobie {
+        right: 10px;
+        font-size: 2.5rem;
+    }
+}
+
+.container-wrapper {
+    position: relative;
+    right: 0;
+    margin-top: 102px;
+    margin-left: 20%;
+    width: 80%;
+    padding-right: 58px;
+    padding-top: 30px;
+    &--social {
+        position: relative;
+        right: 0;
+        margin-top: 102px;
+        margin-left: 10%;
+        width: auto;
+        padding-right: 58px;
+        padding-top: 50px;
+    }
+    @include tablet {
+        width: 72.5%;
+        margin-left: 27.5%;
+        padding-right: 15px;
+    }
+    @include mobie {
+        margin-top: 72px;
+        margin-left: 0;
+        width: 100%;
+        padding: 0 15px;
+        padding-top: 0;
+    }
+}
+.home {
+    overflow: hidden;
+    @include mobie {
+    }
+    h1 {
+        font-size: 5rem;
+    }
+}

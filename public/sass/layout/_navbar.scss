@@ -1,0 +1,316 @@
+.navbar {
+    position: fixed;
+    top: 102px;
+    left: 0;
+    width: 20%;
+    height: 100%;
+    font-size: 2rem;
+    transition: all 0.2s;
+    animation: opa 0.2s linear;
+    padding-left: 35px;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &__social {
+        position: fixed;
+        top: 102px;
+        left: 0;
+        width: 10%;
+        height: 100%;
+        font-size: 2rem;
+        transition: all 0.2s;
+        animation: opa 0.2s linear;
+        padding-left: 35px;
+        padding-top: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        a {
+            color: transparent;
+            line-height: 1;
+            align-items: center;
+            display: flex;
+            font-size: 2rem;
+        }
+    }
+    &__icon {
+        padding: 5px;
+        color: var(--clr-primary);
+        &-item {
+            padding-right: 5px;
+        }
+    }
+    &__link {
+        color: transparent;
+        line-height: 1;
+        align-items: center;
+        display: flex;
+        font-size: 2rem;
+    }
+    &__list {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+    &__music {
+        padding: 15px;
+        width: 80px;
+        height: 80px;
+    }
+    ul {
+        padding-right: 10px;
+
+        li {
+            margin-bottom: 5px;
+            width: 100%;
+            padding-left: 10px;
+            a {
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                &:hover {
+                    color: var(--clr-primary-light);
+                }
+            }
+        }
+    }
+    @include mobie {
+        display: none;
+    }
+    &--active {
+        background-color: var(--clr-primary);
+        border-radius: 5px;
+        a {
+            color: var(--clr-font-oop) !important;
+            &:hover {
+                color: var(--clr-font-oop) !important;
+            }
+        }
+        .menu-dropdown__icon {
+            color: var(--clr-primary);
+        }
+        .navbar__icon {
+            color: var(--clr-font-oop);
+            &:hover {
+                color: var(--clr-font-oop) !important;
+            }
+        }
+    }
+    @include tablet {
+        width: 27.5%;
+    }
+}
+
+// subLogin\
+.subLogin {
+    background-color: var(--clr-bcg-low);
+    width: 440px;
+    padding-bottom: 20px;
+    overflow: hidden;
+    display: none;
+    z-index: 51;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    border-radius: 10px;
+    transition: 0.75s ease-in-out;
+    @include mobie {
+        width: 340px;
+    }
+    &--active {
+        animation: PopUpHeight 0.25s ease-in-out;
+        display: block;
+    }
+    &__title {
+        font-family: fantasy;
+        text-transform: uppercase;
+        font-weight: 800;
+        font-stretch: extra-expanded;
+        color: var(--clr-primary);
+        text-align: center;
+        width: 100%;
+        padding: 20px 0 10px 0;
+        margin: 0 !important;
+    }
+    &__container {
+        width: 80%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        left: 20%;
+        .fa-key {
+            position: absolute;
+            font-size: 1.5rem;
+            top: 85%;
+            left: 2%;
+            z-index: 50;
+        }
+        .fa-user-circle-o {
+            position: absolute;
+            font-size: 1.5rem;
+            top: 34%;
+            left: 2%;
+            z-index: 50;
+        }
+        &-title {
+            font-size: 1.3rem;
+            width: 150px;
+            color: var(--clr-font);
+            letter-spacing: 1px;
+            line-height: 1px;
+            margin: 20px 0;
+        }
+        &-txtValue {
+            position: relative;
+            width: 80%;
+            outline: none;
+            border: none;
+            border-bottom: 1px solid var(--clr-font-low);
+            padding: 5px 5px 5px 25px;
+            transition: 0.35s;
+            border-radius: 5px;
+            &:focus {
+                border-bottom: 1px solid var(--clr-primary);
+            }
+            &:hover {
+                border-bottom: 1px solid var(--clr-primary);
+            }
+            &::before {
+                content: "f2bd";
+                position: absolute;
+                width: 5px;
+                left: 0;
+                top: 0;
+            }
+        }
+    }
+    &__btn {
+        position: relative;
+        align-items: center;
+        outline: none;
+        border: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        border-radius: 30px;
+        letter-spacing: 0.5px;
+        padding: 9px 60px;
+        color: var(--clr-font-oop);
+        background-color: var(--clr-primary);
+        margin: 16px 24.5%;
+        &::after {
+            content: "";
+            position: absolute;
+        }
+        @include mobie {
+            padding: 9px 31px;
+            margin: 16px 25.5%;
+        }
+    }
+    &__control {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &-OR {
+            position: relative;
+            font-size: 2rem;
+            line-height: 1rem;
+            text-transform: uppercase;
+            color: var(--clr-font-low);
+            margin: 12px 0px;
+            // &::after {
+            //     content: "OR";
+            //     position: absolute;
+            //     height: 100%;
+            //     width: 100%;
+            //     font-size: 5rem;
+            //     left: -3%;
+            //     color: transparent;
+            //     -webkit-text-stroke: 1px var(--clr-primary);
+            // }
+            &::after {
+                content: "";
+                position: absolute;
+                height: 1px;
+                width: 50px;
+                left: 150%;
+                top: 50%;
+                background-color: var(--clr-font-low);
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                height: 1px;
+                width: 50px;
+                right: 153%;
+                top: 50%;
+                background-color: var(--clr-font-low);
+            }
+        }
+        &-link {
+            margin: 7px 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            &-cover {
+                margin: 1rem;
+                height: 30px;
+                width: 30px;
+                padding: 12px;
+                outline: none;
+                border: none;
+                border-radius: 50%;
+                background-color: var(--clr-primary);
+                &--facebook {
+                    padding: 12px 15px;
+                }
+                &-icon {
+                    position: relative;
+                    top: 3px;
+                    line-height: 2 !important;
+                    color: white !important;
+                    font-size: 1.9rem !important;
+                }
+            }
+        }
+        &-signUp {
+            &-btn {
+                color: var(--clr-primary);
+            }
+        }
+        &-ForgotPass {
+            color: var(--clr-primary);
+        }
+    }
+}
+.subRegister {
+    display: none;
+    overflow: hidden;
+    transition: 0.75s ease-in-out;
+    &--active {
+        display: block;
+        animation: PopUpWidth 0.2s ease-in-out;
+    }
+    &__btn {
+        margin: 16px 27.5%;
+    }
+    &__checked {
+        font-size: 1rem;
+        width: 80%;
+        position: relative;
+        display: flex;
+        left: 20%;
+        color: var(--clr-font) !important;
+        &-link {
+            font-style: italic;
+            color: var(--clr-primary);
+            &:hover {
+                color: var(--clr-font-low);
+            }
+        }
+    }
+}

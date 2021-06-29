@@ -1,0 +1,193 @@
+// pupolarBlogs
+.popularBlog{
+    margin: 20px 0;
+    &__container{
+      margin: 20px 0;
+    }
+  }
+  figure.snip0021 {
+      position: relative;
+      overflow: hidden;
+      padding: 10px;
+      width: 100%;
+      text-align: center;
+  }
+  figure.snip0021 * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  figure.snip0021 img {
+    opacity: 1;
+    width: 100%;
+    -webkit-transition: opacity 0.35s;
+    transition: opacity 0.35s;
+  }
+  figure.snip0021 figcaption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+  }
+  figure.snip0021 figcaption > div {
+    float: left;
+    height: 100%;
+    overflow: hidden;
+    width: 50%;
+    position: relative;
+  }
+  figure.snip0021 figcaption::before {
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    left: 50%;
+    width: 2px;
+    content: "";
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+    -webkit-transition-delay: 0.6s;
+    transition-delay: 0.6s;
+  }
+  figure.snip0021 h2,
+  figure.snip0021 p {
+    margin: 0;
+    padding: 20px;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    left: 0;
+    -webkit-transition: opacity 0.45s, -webkit-transform 0.45s;
+    transition: opacity 0.45s, -webkit-transform 0.45s, -moz-transform 0.45s,
+      -o-transform 0.45s, transform 0.45s;
+    -webkit-transition-delay: 0.3s;
+    transition-delay: 0.3s;
+  }
+  figure.snip0021 h2 {
+    text-align: right;
+    color: #fff;
+    display: inline-block;
+    word-spacing: -0.1em;
+    font-weight: 300;
+    text-transform: uppercase;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.2) 0%,
+      transparent 60%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+    -webkit-transform: translate3d(50%, 0%, 0);
+    transform: translate3d(50%, 0%, 0);
+  }
+  figure.snip0021 h2 span {
+    font-weight: 800;
+  }
+  figure.snip0021 p {
+    display: block;
+    bottom: 0;
+    text-align: left;
+    font-weight: 300;
+    top: 0%;
+    color: #000;
+    background: #ffffff;
+    background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.3) 0%,
+      transparent 40%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    -webkit-transform: translate3d(-50%, 0%, 0);
+    transform: translate3d(-50%, 0%, 0);
+  }
+  figure.snip0021 .curl {
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(
+      135deg,
+      #ffffff,
+      #f3f3f3 20%,
+      #cccccc 38%,
+      #bbbbbb 44%,
+      #aaaaaa 50%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0.5) 60%,
+      rgba(0, 0, 0, 0.4)
+    );
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+  }
+  figure.snip0021 .curl:before,
+  figure.snip0021 .curl:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 12%;
+    bottom: 6%;
+    width: 70%;
+    max-width: 300px;
+    max-height: 100px;
+    height: 55%;
+    box-shadow: 0 12px 15px rgba(0, 0, 0, 0.3);
+    transform: skew(-10deg) rotate(-6deg);
+  }
+  figure.snip0021 .curl:after {
+    left: auto;
+    right: 6%;
+    bottom: auto;
+    top: 14%;
+    transform: skew(-15deg) rotate(-84deg);
+  }
+  figure.snip0021 a {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    color: #ffffff;
+  }
+  figure.snip0021:hover img,
+  figure.snip0021.hover img {
+    opacity: 0.7;
+  }
+  figure.snip0021:hover figcaption h2,
+  figure.snip0021.hover figcaption h2,
+  figure.snip0021:hover figcaption p,
+  figure.snip0021.hover figcaption p {
+    -webkit-transform: translate3d(0%, 0%, 0);
+    transform: translate3d(0%, 0%, 0);
+    -webkit-transition-delay: 0.3s;
+    transition-delay: 0.3s;
+  }
+  figure.snip0021:hover figcaption h2,
+  figure.snip0021.hover figcaption h2 {
+    opacity: 1;
+  }
+  figure.snip0021:hover figcaption p,
+  figure.snip0021.hover figcaption p {
+    opacity: 1;
+  }
+  figure.snip0021:hover figcaption::before,
+  figure.snip0021.hover figcaption::before {
+    background: #ffffff;
+    top: 0px;
+    bottom: 0px;
+    opacity: 1;
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+  }
+  figure.snip0021:hover figcaption .curl,
+  figure.snip0021.hover figcaption .curl {
+    width: 40px;
+    height: 40px;
+    -webkit-transition-delay: 0.7s;
+    transition-delay: 0.7s;
+  }
+  

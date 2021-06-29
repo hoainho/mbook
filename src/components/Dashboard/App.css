@@ -1,0 +1,158 @@
+.no-p {
+    padding: 0 !important;
+}
+.w-100 {
+    width: 100% !important;
+}
+.w-50 {
+    width: 50% !important;
+}
+.ml-2 {
+    margin-left: 20px !important;
+}
+.mr-2 {
+    margin-right: 20px !important;
+}
+.ml-5 {
+    margin-left: 50px !important;
+}
+.mr-5 {
+    margin-right: 50px !important;
+}
+.no-outline:focus {
+    outline: none !important;
+    border-bottom: 2px solid #111;
+}
+.no-outline:hover {
+    border-bottom: 2px solid #111;
+    transition: 0.5s;
+}
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}
+.nodrag {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    -ms-user-drag: none;
+    user-drag: none;
+}
+
+@font-face {
+    font-family: Poppins;
+    src: url(./assets/font/Poppins.ttf);
+}
+
+@font-face {
+    font-family: Poppins-Medium;
+    src: url(./assets/font/Poppins-Medium.ttf);
+}
+
+.flex {
+    display: flex !important;
+}
+.flex-center-dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flex-col {
+    display: flex !important;
+    flex-direction: column;
+}
+
+/* Animation  */
+@keyframes opa {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.opa {
+    animation-name: opa;
+    animation-duration: 0.8s;
+}
+
+@keyframes opa {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.opa2 {
+    animation-name: opa;
+    animation-duration: 2s;
+}
+
+@keyframes active_line {
+    from {
+        width: 0px;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        transform: translateY(100px);
+    }
+    to {
+        transform: translateY(0px);
+    }
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+}
+.fadeIn-duration {
+    animation-duration: 0.6s !important;
+}
+
+.fadeToRight {
+    animation-name: fadeToRight;
+    animation-duration: 0.5s;
+}
+@keyframes fadeToRight {
+    from {
+        transform: translateX(200px);
+    }
+    to {
+        transform: translateX(0px);
+    }
+}
+
+.fadeToLeft {
+    animation-name: fadeToLeft;
+    animation-duration: 0.5s;
+}
+@keyframes fadeToLeft {
+    from {
+        transform: translateX(-200px);
+    }
+    to {
+        transform: translateX(0px);
+    }
+}
+/* Button */

@@ -1,0 +1,79 @@
+.reviews {
+    &-simulator {
+        height: 100%;
+        overflow-y: scroll;
+    }
+    &__title {
+        &::before {
+            @include mobie {
+                left: 15%;
+            }
+            @include tablet {
+                left: 25%;
+            }
+        }
+        &::after {
+            @include mobie {
+                left: 70%;
+            }
+            @include tablet {
+                left: 65%;
+            }
+        }
+        &-content {
+        }
+    }
+}
+
+.reviewItem {
+    // &:hover &__button {
+    //     transform: translateY(0);
+    //     visibility: visible;
+    //     transition: all 0.5s ease-in-out;
+    // }
+    &__img {
+        height: calc(30vw - 200px) !important;
+        @include mobie {
+            height: auto !important;
+        }
+        @include tablet {
+            height: calc(30vw - 100px) !important;
+        }
+    }
+    &__tag {
+        width: 30%;
+        @include tablet {
+            width: 40%;
+        }
+    }
+}
+.reviews {
+    height: 100%;
+    &__wrapper {
+        height: 100%;
+        padding: 0px 5%;
+        padding-left: 0;
+        overflow: hidden;
+        &-simulator {
+            height: 100%;
+            overflow-y: scroll;
+        }
+    }
+}
+.reivews__modal {
+    height: 100% !important;
+}
+.reivews__modal .ant-modal-content {
+    height: 100% !important;
+}
+.reivews__modal .ant-modal-content,
+.ant-row,
+.ant-col {
+    height: 100% !important;
+}
+.reivews__modal .ant-modal-header {
+    height: 15% !important;
+}
+.reivews__modal .ant-modal-body {
+    height: 85% !important;
+}

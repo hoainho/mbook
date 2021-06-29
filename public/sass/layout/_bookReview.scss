@@ -1,0 +1,135 @@
+// book review
+
+.bookReview {
+    position: fixed;
+    width: 30%;
+    background-color: var(--clr-bcg);
+    top: 100px;
+    height: 100%;
+    right: 0;
+    z-index: 51;
+    padding: 30px;
+    transform: translateX(130%);
+    transition: all 0.5s;
+    &--active {
+        transform: translateX(0);
+    }
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        &-author {
+            display: flex;
+            align-items: center;
+            &-ava {
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                overflow: hidden;
+                img {
+                    max-height: 100%;
+                    max-width: 100%;
+                }
+            }
+            &-name {
+                margin-left: 10px;
+                color: var(--clr-font-low);
+            }
+        }
+        &-close {
+            cursor: pointer;
+            padding: 5px 0;
+            transition: all 0.2s;
+            color: var(--clr-primary);
+            font-size: 2rem;
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+    }
+
+    &__title {
+        margin: 20px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        &-main {
+            text-align: center;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+        &-date {
+            text-align: center;
+            color: var(--clr-font-low);
+            i {
+                margin-right: 5px;
+            }
+        }
+        @include mobie {
+            margin: 30px 0;
+        }
+    }
+
+    &__sub {
+        text-indent: 20px;
+        @include mobie {
+            font-size: 1.5rem;
+        }
+        span {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 14;
+            overflow: hidden;
+        }
+    }
+
+    &__action {
+        display: flex;
+        padding: 10px 0;
+        margin: 15px 0;
+        border-top: 1px solid var(--clr-boder);
+        border-bottom: 1px solid var(--clr-boder);
+        color: var(--clr-font-low);
+        align-items: center;
+        &-comment {
+            margin-left: 10px;
+        }
+        i {
+            margin-right: 5px;
+        }
+        @include mobie {
+            margin: 20px 0;
+        }
+    }
+
+    &__detail {
+        width: 100%;
+        padding: 5px;
+        text-align: center;
+        border-radius: 5px;
+        cursor: pointer;
+        bottom: 0;
+        position: relative;
+        transition: all 0.2s;
+        color: rgb(14, 14, 14);
+        background-color: var(--clr-primary);
+        &:hover {
+            background-color: var(--clr-primary-light);
+            color: var(--clr-font-oop);
+        }
+    }
+
+    @include mobie {
+        top: 70px;
+        width: 65%;
+        padding: 15px;
+        font-size: 1.5rem;
+    }
+
+    @include tablet {
+        width: 55%;
+    }
+}

@@ -1,0 +1,120 @@
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    transition: all 0.2s;
+}
+
+//Dãi phân cách
+.divider {
+    border: none !important;
+    border-bottom: 1px solid rgba(#626262, 0.4) !important;
+    padding: 15px;
+}
+.actived-block {
+    display: block;
+}
+.actived-none {
+    display: none;
+}
+.actived-flex {
+    display: flex !important;
+}
+.paddingComment {
+    padding: 0 20px;
+}
+:root {
+    --clr-bcg: #fff;
+    --clr-bcg-low: #fafafa;
+    --clr-bcg-grey: #f8f8f8;
+    --clr-font: #282c35;
+    --clr-font-oop: #fff;
+    --clr-font-low: #626262;
+    --clr-input: #bfbfbf;
+    --clr-bcg-btn: #18191a;
+    --clr-primary: #e4b200;
+    --clr-primary-light: #f8c200;
+    --clr-boder: #e0e0e0;
+    --clr-sale: #38cb89;
+    --clr-hot: #e4573d;
+    --font-family-apple: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", sans-serif;
+    --font-family-default: Helvetica, Arial, sans-serif;
+    --font-family-segoe: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
+}
+
+.dark-theme {
+    --clr-bcg: #161616;
+    --clr-bcg-low: #222222;
+    --clr-bcg-input: #222121;
+    --clr-bcg-grey: #313131;
+    --clr-bcg-icon: #353535;
+    --clr-font: #fff;
+    --clr-font-oop: #161616;
+    --clr-font-low: #a4a4a4;
+    --clr-primary: #9cf0e1;
+    --clr-primary-light: #5afcde;
+    --clr-boder: #414141;
+}
+.light-theme {
+    --clr-bcg: #fff;
+    --clr-bcg-low: #fafafa;
+    --clr-bcg-input: #e5e5e54a;
+    --clr-font: #161616;
+    --clr-font-oop: #fff;
+    --clr-font-low: #797979;
+    --clr-primary: #e4b200;
+    --clr-primary-light: #f8c200;
+    --clr-boder: #e0e0e0;
+}
+*,
+::after,
+::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Selection */
+::selection {
+    color: var(--clr-font);
+    background: var(--clr-primary);
+}
+/* SCROLLBAR */
+::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+}
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: #f5f5f5;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--clr-primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+ol li,
+ul li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: var(--clr-font);
+}
+
+// ẩn thanh scroll
+// ::-webkit-scrollbar {
+//     width: 0px;  /* Remove scrollbar space */
+//     background: transparent;  /* Optional: just make scrollbar invisible */
+// }
+// /* Optional: show position indicator in red */
+// ::-webkit-scrollbar-thumb {
+//     background: transparent;
+// }

@@ -1,0 +1,202 @@
+/* Banner */
+.banner-container {
+  @include tablet {
+    height: 60vh;
+  }
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row !important;
+}
+.Banner {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.banner-container {
+  width: 100%;
+  height: 70vh;
+  position: relative;
+  &-imageCover {
+    position: absolute;
+    top: 0;
+    right: 15%;
+    max-width: 150px;
+  }
+  &-imageCover img {
+    width: 100%;
+    height: 100%;
+  }
+  @include tablet {
+    height: 50vh;
+  }
+}
+.banner-first,
+.banner-second,
+.banner-third {
+  display: flex;
+  overflow: hidden;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  transition: 1s;
+  flex-direction: column !important;
+}
+.banner-first {
+  background-image: url(../../assets/s1.jpg);
+  padding: 10px;
+  justify-content: center;
+  align-items: flex-start;
+}
+.banner-second {
+  background-image: url(../../assets/s2.jpg);
+  align-items: center;
+  justify-content: center;
+  padding-left: 130px;
+  padding-bottom: 10px;
+}
+.banner-third {
+  background-image: url(../../assets/s3.jpg);
+  padding: 10px;
+  justify-content: center;
+  align-items: flex-end;
+}
+.banner-content {
+  display: flex;
+  max-width: 40%;
+  justify-content: center;
+  padding: 10px;
+  flex-direction: column;
+}
+.banner-first.banner-content {
+  align-items: flex-start;
+}
+.banner-second .banner-content {
+  align-items: center;
+}
+.banner-third.banner-content {
+  align-items: flex-end;
+}
+.hide {
+  visibility: hidden;
+  opacity: 0;
+}
+.displayNone {
+  opacity: 0;
+  z-index: -2;
+  pointer-events: none;
+  /* display: none; */
+}
+.choose-slide {
+  position: absolute;
+  bottom: 40px;
+}
+.choose-line {
+  background-color: #999;
+  height: 3px;
+  width: 20px;
+  margin: 0px 5px;
+  cursor: pointer;
+}
+.choose_line_active {
+  background-color: #000;
+}
+.choose-line:hover {
+  background-color: #ddd;
+}
+.scrolled {
+  transform: translateY(-100px);
+}
+.white {
+  background: rgba(255, 255, 255, 1);
+}
+.white_disable {
+  background: rgba(255, 255, 255, 0) !important;
+}
+// .banner-title {
+//   font-weight: 100;
+//   font-size: 60px;
+//   font-family: sans-serif;
+//   margin-top: 35px;
+//   margin-bottom: 25px;
+//   color: #fff;
+//   @include mobie {
+//     font-size: 3.5rem;
+//   }
+// }
+.banner-title {
+  position: relative;
+  font-family: "Exo";
+  font-size: 5rem;
+  margin: 0;
+  transform: skew(-15deg);
+  letter-spacing: 0.03rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -0.1rem;
+    right: 0.05rem;
+    width: 3.4rem;
+    height: 3.4rem;
+    background: radial-gradient(white 3%, rgba(white, 0.3) 15%, rgba(white, 0.05) 60%, transparent 80%),
+      radial-gradient(rgba(white, 0.2) 50%, transparent 60%) 50% 50% / 5% 100%,
+      radial-gradient(rgba(white, 0.2) 50%, transparent 60%) 50% 50% / 70% 5%;
+    background-repeat: no-repeat;
+    transition: all 0.25s ease-in-out;
+    animation: item-header-sub 2.25s ease-in-out infinite;
+  }
+
+  & span:first-child {
+    display: block;
+    text-shadow: 0 0 0.1rem #8ba2d0, 0 0 0.2em black, 0 0 5em #165ff3;
+    -webkit-text-stroke: 0.06rem rgba(black, 0.5);
+  }
+
+  & span:last-child {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: linear-gradient(
+      var(--clr-primary) 25%,
+      var(--clr-primary-light) 35%,
+      white 50%,
+      var(--clr-primary) 50%,
+      var(--clr-primary) 55%,
+      var(--clr-primary) 75%
+    );
+    -webkit-text-stroke: 0.01rem #94a0b9;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+.banner-link {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #fff;
+  padding: 10px 20px;
+  background-color: var(--clr-primary);
+  letter-spacing: 1px;
+  font-weight: 500;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: fit-content;
+}
+.banner-link i {
+  padding-left: 5px;
+  font-size: 1.5rem;
+  animation: loading-frog 1.5s ease-in-out infinite;
+}
+.zindex {
+  z-index: 999976876867;
+}
+.banner-link-second {
+  margin-left: 180px;
+}

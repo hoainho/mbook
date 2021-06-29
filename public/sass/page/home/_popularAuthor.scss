@@ -1,0 +1,132 @@
+// popular author
+
+.popularAuthor {
+  display: flex;
+  align-items: center;
+  animation: sliding-background 40s linear infinite;
+  height: 100%;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 30px;
+  &__sub {
+    display: flex;
+    flex-direction: column;
+    padding-right: 10px;
+    &-header {
+      text-align: left;
+      padding-left: 8rem;
+      h2 {
+        font-size: 8rem !important;
+        &::before,
+        &::after {
+          width: fit-content;
+        }
+      }
+      @include mobie {
+        font-size: 1.2rem;
+      }
+    }
+
+    &-name {
+      display: inline-block;
+      text-align: end;
+      font-size: 4rem;
+      color: var(--clr-primary);
+      font-weight: bold;
+      @include mobie {
+        font-size: 2rem;
+      }
+    }
+    &-description {
+      text-align: end;
+      color: var(--clr-font);
+      padding: 10px 0;
+      font-size: 2rem;
+      @include mobie {
+        font-size: 1rem;
+      }
+    }
+    &-social {
+      display: flex;
+      justify-content: flex-end;
+      &-icon {
+        display: inline-block;
+        cursor: pointer;
+        border-radius: 50%;
+        background-color: var(--clr-primary);
+        font-size: 2rem;
+        text-align: center;
+        color: var(--clr-font-oop);
+        margin-left: 10px;
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        perspective: 500px;
+        transform-style: preserve-3d;
+        .js-tilt-glare {
+          border-radius: 50%;
+        }
+        &:hover .fa {
+          transform: scale(1.5) translateZ(10px);
+          color: white !important;
+        }
+        &:hover.popularAuthor__sub-social-icon.fa-facebook {
+          color: mix(white, blue, 85%);
+        }
+        &:hover.popularAuthor__sub-social-icon.fa-instagram {
+          color: var(--clr-font);
+        }
+        @include mobie {
+          font-size: 1.2em;
+          height: 25px;
+          width: 25px;
+        }
+      }
+      @include mobie {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  &__img {
+    width: 100%;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: left;
+    clip-path: circle(50% at 100% 52%);
+    transition: all 0.35s ease-in-out;
+    flex-direction: column;
+    position: relative;
+    &-over {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      animation: opa 0.2s linear;
+      display: none;
+    }
+    &:hover {
+      transition: all 0.35s ease-in-out;
+      background-position: center;
+      clip-path: circle(100% at 100% 0%);
+      background-size: cover;
+      .popularAuthor__img-over {
+        display: block;
+      }
+    }
+    @include mobie {
+      height: 250px;
+    }
+  }
+}

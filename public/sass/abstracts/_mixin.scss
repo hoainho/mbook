@@ -1,0 +1,65 @@
+// RESPONSIVE
+
+// $mobile-width: 480px; 
+// $tablet-width: 768px; 
+// $tablet-plus-width: 1024px;  
+// $desktop-width : 1367px;
+
+$mobile-width: 46.1875em; 
+$tablet-width: 46.25em; //740px; 
+$desktop-width : 64em; // 1024px;
+
+@mixin mobie {
+    @media (max-width: 46.1875em){ // < 740px
+        @content;
+    }
+};
+@mixin  tablet {
+    @media (min-width: #{$tablet-width}) and (max-width: 63.9375em){
+        @content;
+    }
+}
+@mixin desktop {   
+    @media (min-width: #{$desktop-width}){     
+        @content;  
+   } 
+}  
+// @mixin mobie {
+//     @media (max-width: #{$tablet-width - 1px}){
+//         @content;
+//     }
+// };
+// @mixin  tablet {
+//     @media (min-width: #{$tablet-width}) and (max-width: #{$tablet-plus-width - 1px}){
+//         @content;
+//     }
+// }
+// @mixin tablet-plus {   
+//     @media (min-width: #{$tablet-plus-width}) and (max-width: #{$desktop-width - 1px }) {     
+//         @content;  
+//    } 
+// }
+
+// @mixin desktop {   
+//     @media (min-width: #{$desktop-width}){     
+//         @content;  
+//    } 
+// }  
+
+/// Block Element
+/// @access public
+/// @param {String} $element - Element's name
+@mixin el($element) {
+    &__#{$element} {
+        @content;
+    }
+}
+
+/// Block Modifier
+/// @access public
+/// @param {String} $modifier - Modifier's name
+@mixin mod($modifier) {
+    &--#{$modifier} {
+        @content;
+    }
+}

@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+body {
+  font-family: "Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif" !important;
+  background: var(--clr-bcg) !important;
+  color: var(--clr-font);
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  height: 100vh !important;
+  width: 100vw !important;
+  // overflow: hidden;
+  overflow-x: hidden;
+  transition: all 0.2s;
+}
+p {
+  margin-bottom: 0 !important;
+}

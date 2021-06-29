@@ -1,0 +1,56 @@
+// quote
+
+.quote{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    &__icon{
+      height: 50px;
+      width: 50px;
+      border: 1px solid #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      @include mobie{
+        height: 40px;
+        width: 40px;
+      }
+    }
+    &__content{
+      font-size: 1.4rem;
+      color: rgb(230, 230, 230);
+      padding: 20px 30px;
+      padding-bottom: 10px;
+      @include mobie{
+        font-size: 1rem;
+        padding: 10px 30px;
+        padding-bottom: 5px;
+      }
+    }
+    &__author{
+      cursor: pointer;
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--clr-primary);
+      &:hover{
+        color: var(--clr-primary-light);
+      }
+      @include mobie{
+        font-size: 1.4rem;
+      }
+    }
+    @include mobie{
+      height: 160px ;
+    }
+  }

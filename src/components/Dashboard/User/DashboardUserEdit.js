@@ -15,9 +15,9 @@ export default function DashboardUserCreate(props) {
         id: "", modifiedby: "", modifieddate: "", createdby: "", createddate: "", fullname: "", username: "", password: "", roleid: "", status: false
     })
     const account = useSelector((state) => state.account)
-    const { id, modifiedby, modifieddate, createdby, createddate, fullname, username, password, roleid, status } = account.accountEdit.account
+    const { idAccount, modifiedby, modifieddate, createdby, createddate, fullname, username, password, roleid, status } = account.accountEdit.account
     useEffect(() => {
-        setInputValue({ id, modifiedby, modifieddate, createdby, createddate, fullname, username, password, roleid, status })
+        setInputValue({ idAccount, modifiedby, modifieddate, createdby, createddate, fullname, username, password, roleid, status })
     }, [])
     const [hideText, setHideText] = useState(false)
     const openMenu = props.openMenu;
@@ -29,7 +29,7 @@ export default function DashboardUserCreate(props) {
         event.preventDefault()
         inputValue.modifieddate = new Date();
         console.log({ inputValue });
-        requestAPI(`/account/${id}`, 'PUT', inputValue, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/account/PutAccount/${idAccount}`, 'PUT', inputValue, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res.data === false) {
                     notificationCustom("Nhắc Nhở", `Bạn không đủ quyền `, "warning")

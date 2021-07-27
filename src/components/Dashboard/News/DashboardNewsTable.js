@@ -257,13 +257,13 @@ export default function DashboardNewsTable(props) {
                                                     WebkitBoxOrient: 'vertical',
                                                     overflow: 'hidden'
                                                 }}
-                                                dangerouslySetInnerHTML={{ __html: item?.content }}
+                                                dangerouslySetInnerHTML={{ __html: item?.description }}
                                             >
                                             </td>
                                             <td className="table-mobile-newscate">
-                                                {item.categoryId?.map(item => {
+                                                {item.categoryPosters?.map(item => {
                                                     return (
-                                                        <p key={item.id} style={{ color: 'orange' }}>{item.name}</p>
+                                                        <p key={item.idCategory} style={{ color: 'orange' }}>{item?.idCategoryNavigation?.name}</p>
                                                     )
                                                 })}
                                             </td>
@@ -274,21 +274,21 @@ export default function DashboardNewsTable(props) {
                                                 <p style={{ color: '#5374B9' }}>By {item?.createdby}</p>
                                             </td>
                                             <td className="table-mobile-newsview">
-                                                <p style={{ color: 'green' }}>{item?.listlike?.length} like</p>
+                                                <p style={{ color: 'green' }}>{item?.listLikes?.length} like</p>
                                             </td>
                                             <td>
                                                 <div className="action-table flex">
                                                     <div
                                                         className="action-item flex-center-dashboard action-green"
-                                                        onClick={() => getDetails(item, item.id)}
-                                                        id={item.id}
+                                                        onClick={() => getDetails(item, item.idPoster)}
+                                                        id={item.idPoster}
                                                     >
                                                         <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faPencilAlt} />
                                                     </div>
                                                     <div
                                                         className="action-item flex-center-dashboard action-red"
-                                                        onClick={() => deletePoster(item.id)}
-                                                        id={item._id}
+                                                        onClick={() => deletePoster(item.idPoster)}
+                                                        id={item.idPoster}
                                                     >
                                                         <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faTimes} />
                                                     </div>

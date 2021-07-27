@@ -93,7 +93,7 @@ export default function BlogAside(props) {
             })
             .catch(err => {
                 if (err.response) {
-                    if (err.response.status === 403) {
+                    if (err.response.status === 401) {
                         notificationCustom("Nhắc Nhở", `Vui lòng đăng nhập để thực hiện chắc năng này`, "warning")
                     }
                     if (err.response.status === 500) {

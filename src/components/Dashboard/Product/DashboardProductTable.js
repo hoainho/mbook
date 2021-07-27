@@ -36,6 +36,7 @@ export default function DashboardProductTable(props) {
         requestAPI('/product', 'GET')
             .then(res => {
                 if (res) {
+                    console.log({ pro: res.data });
                     setProducts(res.data)
                     setConstProducts(res.data)
                 }
@@ -125,20 +126,21 @@ export default function DashboardProductTable(props) {
     }
 
     const deleteOnClick = (event) => {
-        requestAPI(`/product/${event.target.id}`, 'DELETE', { id: event.target.id }, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/product/${event.target.id}`, 'DELETE', null, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
-                    notificationCustom("Thông Báo", `Xóa thành công  `, "success")
+                    notificationCustom("Thông Báo", `${res.data}`, "success")
                     setStatus(!status)
                 }
             })
             .catch(err => {
                 if (err.response) {
-                    if (err.response.status === 403) {
+                    if (err.response.status === 401) {
                         notificationCustom("Nhắc Nhở", `Bạn không đủ quyền `, "warning")
                     }
                     if (err.response.status === 500) {
-                        notificationCustom("Nhắc Nhở", `Vui lòng nhập thông tin theo đúng yêu cầu`, "warning")
+                        notificationCustom("Nhắc Nhở", `Sản phẩm này đang nằm trong giỏ hàng của khách hàng ! 
+                        \n Nếu bạn cố gắng xóa nó hãy thử xóa giỏ hàng trước hoặc sau khi giao hàng.`, "danger")
                     }
                 }
             })
@@ -328,7 +330,7 @@ export default function DashboardProductTable(props) {
                                                 <p>{item.priceOld.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</p>
                                             </td>
                                             <td>
-                                                {item.priceSale ? <p>{item.priceSale.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</p> : ''}
+                                                {item.priceSale ? <p>{item.priceSale.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</p> : 'NO'}
                                             </td>
                                             {item.sale === false ?
                                                 <td className="table-mobile-productsale">
@@ -350,9 +352,9 @@ export default function DashboardProductTable(props) {
                                             }
                                             {/* category */}
                                             <td className="table-mobile-productdate">
-                                                <p>{item.categoryId?.map(item => {
+                                                <p>{item.categoryProducts?.map(item => {
                                                     return (
-                                                        <p key={item.id} className="star-color star">{item.name}</p>
+                                                        <p key={item?.idCategoryNavigation?.idCategory} className="star-color star">{item?.idCategoryNavigation?.name}</p>
                                                     )
                                                 })}</p>
                                             </td>
@@ -386,15 +388,15 @@ export default function DashboardProductTable(props) {
                                                 <div className="action-table flex">
                                                     <div
                                                         className="action-item flex-center-dashboard action-green"
-                                                        onClick={() => props.setOpenEditFunc(item, item.id)}
-                                                        id={item.id}
+                                                        onClick={() => props.setOpenEditFunc(item, item.idProduct)}
+                                                        id={item.idProduct}
                                                     >
                                                         <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faPencilAlt} />
                                                     </div>
                                                     <div
                                                         className="action-item flex-center-dashboard action-red"
                                                         onClick={deleteOnClick}
-                                                        id={item.id}
+                                                        id={item.idProduct}
                                                     >
                                                         <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faTimes} />
                                                     </div>

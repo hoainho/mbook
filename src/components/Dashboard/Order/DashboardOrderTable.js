@@ -250,7 +250,7 @@ export default function DashboardUserTable(props) {
                                             <td className="mobile-table-orderinfo">
                                                 <ul style={{ margin: '10px 0' }}>
                                                     <li className="flex" style={{ display: "flex !important", flexWrap: "wrap" }}>
-                                                        <p style={{ marginRight: '5px', fontWeight: 'bold', wordWrap: 'break-word', WebkitLineClamp: '3' }}>#{item.id}</p>
+                                                        <p style={{ marginRight: '5px', fontWeight: 'bold', wordWrap: 'break-word', WebkitLineClamp: '3' }}>#{item.idOrder}</p>
                                                         <p className="mobile-table-name">by {item.fullname}</p>
                                                     </li>
                                                 </ul>
@@ -289,8 +289,8 @@ export default function DashboardUserTable(props) {
                                                 <div className="action-table flex">
                                                     <div
                                                         className="action-item flex-center-dashboard action-primary"
-                                                        onClick={() => getDetails(item.id)}
-                                                        id={item.id}
+                                                        onClick={() => getDetails(item.idOrder)}
+                                                        id={item.idOrder}
                                                     >
                                                         <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faEye} />
                                                     </div>

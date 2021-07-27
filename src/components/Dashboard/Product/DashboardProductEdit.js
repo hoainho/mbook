@@ -25,22 +25,25 @@ export default function DashboardProductEdit(props) {
             sale: false,
             priceOld: '',
             priceSale: '',
-            authorName: '',
-            createddate: '',
+            idAuthor: '',
+            idCategory: '',
+            CategoryProducts: [],
             modifieddate: '',
-            category: ''
         }
     )
     const [cate, setCate] = useState([])
     const [authorNew, setAuthorNew] = useState([])
     const [cateValue, setCateValue] = useState("")
     const product = useSelector((state) => state.product)
-    const { id, name, imageBef, imageAf, author, priceOld, priceSale, quantity, rating, thumbnails, categoryId, hot, description } = product.productEdit.product
+    const { idProduct, name, imageBef, imageAf, idAuthorNavigation, priceOld, priceSale, quantity, rating, thumbnails, categoryProducts, hot, description } = product.productEdit.product
     const handleOnChange = (event) => {
         setInputValue({ ...inputValue, [event.target.name]: event.target.value })
     }
     useEffect(() => {
+        let idCategory = categoryProducts[0]?.idCategoryNavigation?.idCategory;
+        let idAuthor = idAuthorNavigation?.idAuthor
         setInputValue({
+            idProduct,
             name,
             quantity,
             description,
@@ -51,9 +54,8 @@ export default function DashboardProductEdit(props) {
             priceOld,
             hot,
             priceSale,
-            authorName: author.name,
-            createddate: '',
-            category: categoryId[0]?.name
+            idAuthor,
+            idCategory,
         })
         requestAPI('/category', 'GET')
             .then(res => {
@@ -78,29 +80,26 @@ export default function DashboardProductEdit(props) {
                 }
             })
     }, [])
-
     const onSubmit = (event) => {
         event.preventDefault()
         inputValue.modifieddate = new Date();
-        // inputValue.hot = true ( Tạo HOT )
-        if (inputValue.priceSale) {
+        if (inputValue.priceSale > 0 && inputValue.priceSale) {
             inputValue.sale = true
         } else {
             inputValue.sale = false
         }
         //post id
         console.log({ inputValue });
-        requestAPI(`/product/${id}`, 'PUT', inputValue, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/product/${idProduct}`, 'PUT', inputValue, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res.data) {
-                    notificationCustom("Thông Báo", `Cập Nhật Sản Phẩm Thành Công `, "success")
+                    notificationCustom("Thông Báo", `${res.data}`, "success")
                     props.setToastFunc(true)
-                    console.log({ Status: res.data });
                 }
             })
             .catch(err => {
                 if (err.response) {
-                    if (err.response.status === 403) {
+                    if (err.response.status === 403 || err.response.status === 401) {
                         notificationCustom("Nhắc Nhở", `Bạn không đủ quyền `, "warning")
                     }
                     if (err.response.status === 500) {
@@ -261,13 +260,13 @@ export default function DashboardProductEdit(props) {
                         <div className="dashboard-left flex">Tác Giả :  </div>
                         <div className="dashboard-right flex-left-dashboard">
                             <select style={{ width: "30%", marginRight: "5%" }}
-                                onChange={(event) => { setInputValue({ ...inputValue, authorName: event.target.value }) }}
-                                value={inputValue?.authorName}>
+                                onChange={(event) => { setInputValue({ ...inputValue, idAuthor: event.target.value }) }}
+                                value={inputValue?.idAuthor}>
                                 <option></option>
                                 {authorNew.length > 0 &&
                                     authorNew.map(item => {
                                         return (
-                                            <option key={item?.id}>{item?.name}</option>
+                                            <option value={item?.idAuthor} key={item?.idAuthor}>{item?.name}</option>
                                         )
                                     })
                                 }
@@ -294,13 +293,13 @@ export default function DashboardProductEdit(props) {
                         <div className="dashboard-left flex">Thể Loại </div>
                         <div className="dashboard-right flex-center-dashboard">
                             <select style={{ width: "350px" }}
-                                onChange={(event) => { setInputValue({ ...inputValue, category: event.target.value }) }}
-                                value={inputValue.category}>
+                                onChange={(event) => { setInputValue({ ...inputValue, idCategory: event.target.value, CategoryProducts: [{ idCategory: event.target.value }] }) }}
+                                value={inputValue.idCategory}>
                                 <option></option>
                                 {cate.length > 0 &&
                                     cate.map(item => {
                                         return (
-                                            <option key={item?.id}>{item?.name}</option>
+                                            <option value={item?.idCategory} key={item?.idCategory}>{item?.name}</option>
                                         )
                                     })
                                 }

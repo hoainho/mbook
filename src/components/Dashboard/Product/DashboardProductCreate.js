@@ -27,7 +27,7 @@ export default function DashboardProductCreate(props) {
             sale: false,
             priceOld: '',
             priceSale: '',
-            authorName: '',
+            idAuthor: '',
             createddate: ''
         }
     )
@@ -95,7 +95,19 @@ export default function DashboardProductCreate(props) {
                 }
             })
     }, [])
-
+    useEffect(() => {
+        requestAPI('/category', 'GET')
+            .then(res => {
+                if (res) {
+                    setCate(res.data)
+                }
+            })
+            .catch(err => {
+                if (err.response) {
+                    console.log('ERROR :' + err);
+                }
+            })
+    }, [cate])
     const onSubmit = (event) => {
         event.preventDefault()
         inputValue.createddate = new Date();
@@ -301,13 +313,13 @@ export default function DashboardProductCreate(props) {
                         <div className="dashboard-left flex">Tác Giả :  </div>
                         <div className="dashboard-right">
                             <select style={{ width: "30%", marginRight: "5%" }}
-                                onChange={(event) => { setInputValue({ ...inputValue, authorName: event.target.value }) }}
-                                value={inputValue?.authorName}>
+                                onChange={(event) => { setInputValue({ ...inputValue, idAuthor: event.target.value }) }}
+                                value={inputValue?.idAuthor}>
                                 <option></option>
                                 {author.length > 0 &&
                                     author.map(item => {
                                         return (
-                                            <option key={item?.id}>{item?.name}</option>
+                                            <option value={item?.idAuthor} >{item?.name}</option>
                                         )
                                     })
                                 }
@@ -334,13 +346,13 @@ export default function DashboardProductCreate(props) {
                         <div className="dashboard-left flex">Thể Loại </div>
                         <div className="dashboard-right flex-center-dashboard">
                             <select style={{ width: "350px" }}
-                                onChange={(event) => { setInputValue({ ...inputValue, category: event.target.value }) }}
-                                value={inputValue.category}>
+                                onChange={(event) => { setInputValue({ ...inputValue, CategoryProducts: [{ idCategory: event.target.value }] }) }}
+                                value={inputValue.idCategory}>
                                 <option></option>
                                 {cate.length > 0 &&
                                     cate.map(item => {
                                         return (
-                                            <option key={item?.id}>{item?.name}</option>
+                                            <option value={item?.idCategory} key={item?.idCategory}>{item?.name}</option>
                                         )
                                     })
                                 }

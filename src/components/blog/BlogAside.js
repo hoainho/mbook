@@ -20,13 +20,13 @@ export default function BlogAside(props) {
     const [postAPI, setPostAPI] = useState()
     const [btnLoading, setBtnLoading] = useState(false);
     const [imgLoading, setImgLoading] = useState(false);
-    const [post, setPost] = useState({ title: "", sub: "", content: "", urlImage: 'http://res.cloudinary.com/remalw/image/upload/v1620066495/m-book/z7ftb1kemz1temydh5c6.jpg' })
+    const [post, setPost] = useState({ title: "", sub: "", description: "", urlImage: 'http://res.cloudinary.com/remalw/image/upload/v1620066495/m-book/z7ftb1kemz1temydh5c6.jpg', CategoryPosters: [] })
     const [visible, setVisible] = useState(false);
     const [displayImage, setDisplayImage] = useState(imgDe);
     // Render Thể Loại
     useEffect(() => {
 
-        requestAPI('/category/get', 'GET')
+        requestAPI('/category', 'GET')
             .then(res => {
                 if (res) {
                     console.log(res.data);
@@ -40,14 +40,16 @@ export default function BlogAside(props) {
             })
     }, [])
     categoryData?.map((item, index) => {
-        categories.push(<Option key={index}>{item.name}</Option>);
+        categories.push(<Option key={item.idCategory}>{item.name}</Option>);
     })
-    // Get value add 
-    function handleChangeCategory(value) {
-        console.log({ value });
+    function handleChangeCategory(CategoryPosters) {
+        let temp = []
+        CategoryPosters.forEach(idCategory => {
+            temp.push({ idCategory })
+        });
         setPost({
             ...post,
-            categoryCode: value
+            CategoryPosters: temp
         })
     }
     // Upload Image Post
@@ -79,15 +81,11 @@ export default function BlogAside(props) {
     const postBlog = (post) => {
         post.createddate = new Date();
         console.log({ post });
-        requestAPI('/poster/upload', 'POST', post, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI('/poster', 'POST', post, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
-                    if (res.status === 403) {
-                        notificationCustom("Nhắc Nhở", `Vui lòng đăng nhập để thực hiện chắc năng này`, "warning")
-                        return;
-                    }
                     notificationCustom("Thông Báo", `Đăng bài thành công  `, "success")
-                    setPost({ title: "", sub: "", content: "" })
+                    setPost({ title: "", sub: "", description: "" })
                     setPostAPI(res.data)
                     props.poster(res.data)
                     console.log(res.data);
@@ -158,10 +156,10 @@ export default function BlogAside(props) {
                                     <div className="blog__container-aside-wrapper-upload-content-box">
                                         <h3 className="blog__container-aside-wrapper-upload-content-box-title">Nội Dung</h3>
                                         <textarea rows="6" className="blog__container-aside-wrapper-upload-content-box-content"
-                                            name="content"
+                                            name="description"
                                             onChange={handleChangePost}
                                             placeholder="Nhập nội dung bài viết ... "
-                                            value={post.content}
+                                            value={post.description}
                                             required autocomplete="off">
                                         </textarea>
                                     </div>
@@ -202,7 +200,7 @@ export default function BlogAside(props) {
                             </span>
                             <Link className="blog__container-aside-wrapper-post-link">
                                 Cảm nhận đắc nhâm tâm sau 2 ngày
-                                        </Link>
+                            </Link>
                         </li>
                         <li className="blog__container-aside-wrapper-post-item">
                             <span className="blog__container-aside-wrapper-post-icon">
@@ -210,7 +208,7 @@ export default function BlogAside(props) {
                             </span>
                             <Link className="blog__container-aside-wrapper-post-link">
                                 CAnh da đen và những người bạn
-                                        </Link>
+                            </Link>
                         </li>
 
                         <li className="blog__container-aside-wrapper-post-item">
@@ -219,7 +217,7 @@ export default function BlogAside(props) {
                             </span>
                             <Link className="blog__container-aside-wrapper-post-link">
                                 Đừng quên tên anh
-                                        </Link>
+                            </Link>
                         </li>
                         <li className="blog__container-aside-wrapper-post-item">
                             <span className="blog__container-aside-wrapper-post-icon">
@@ -227,7 +225,7 @@ export default function BlogAside(props) {
                             </span>
                             <Link className="blog__container-aside-wrapper-post-link">
                                 Bố già và những câu chuyện
-                                        </Link>
+                            </Link>
                         </li>
                         <li className="blog__container-aside-wrapper-post-item">
                             <span className="blog__container-aside-wrapper-post-icon">
@@ -235,7 +233,7 @@ export default function BlogAside(props) {
                             </span>
                             <Link className="blog__container-aside-wrapper-post-link">
                                 Cảm nhận đắc nhâm tâm sau 2 ngày
-                                        </Link>
+                            </Link>
                         </li>
 
                     </ul>
@@ -254,7 +252,7 @@ export default function BlogAside(props) {
                             </span>
                             <Link className="blog__container-aside-wrapper-post-link">
                                 Cảm nhận đắc nhâm tâm sau 2 ngày
-                                        </Link>
+                            </Link>
                         </li>
                         <li className="blog__container-aside-wrapper-post-item">
                             <span className="blog__container-aside-wrapper-post-icon">
@@ -262,7 +260,7 @@ export default function BlogAside(props) {
                             </span>
                             <Link className="blog__container-aside-wrapper-post-link">
                                 Anh da đen và những người bạn
-                                        </Link>
+                            </Link>
                         </li>
 
                         <li className="blog__container-aside-wrapper-post-item">
@@ -271,7 +269,7 @@ export default function BlogAside(props) {
                             </span>
                             <Link className="blog__container-aside-wrapper-post-link">
                                 Đừng quên tên anh
-                                        </Link>
+                            </Link>
                         </li>
                         <li className="blog__container-aside-wrapper-post-item">
                             <span className="blog__container-aside-wrapper-post-icon">
@@ -279,7 +277,7 @@ export default function BlogAside(props) {
                             </span>
                             <Link className="blog__container-aside-wrapper-post-link">
                                 Bố già và những câu chuyện
-                                        </Link>
+                            </Link>
                         </li>
                         <li className="blog__container-aside-wrapper-post-item">
                             <span className="blog__container-aside-wrapper-post-icon">
@@ -287,7 +285,7 @@ export default function BlogAside(props) {
                             </span>
                             <Link className="blog__container-aside-wrapper-post-link">
                                 Cảm nhận đắc nhâm tâm sau 2 ngày
-                                        </Link>
+                            </Link>
                         </li>
 
                     </ul>

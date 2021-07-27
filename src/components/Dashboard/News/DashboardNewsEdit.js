@@ -43,7 +43,7 @@ export default function DashboardNewsCreate(props) {
             title,
             urlImage
         })
-        requestAPI('/category/get', 'GET')
+        requestAPI('/category', 'GET')
             .then(res => {
                 if (res) {
                     setCate(res.data)
@@ -61,7 +61,7 @@ export default function DashboardNewsCreate(props) {
         event.preventDefault()
         console.log({ inputValue });
         inputValue.modifieddate = new Date();
-        requestAPI(`/poster/update/${id}`, 'PUT', inputValue, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/poster/${id}`, 'PUT', inputValue, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res.data) {
                     notificationCustom("Thông Báo", `Cập Nhật Sản Phẩm Thành Công `, "success")
@@ -82,7 +82,7 @@ export default function DashboardNewsCreate(props) {
     }
 
     const addNewCate = () => {
-        requestAPI('/category/upload', 'POST', { name: inputValue.cate }, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI('/category', 'POST', { name: inputValue.cate }, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     notificationCustom("Thông Báo", `Thêm Thể Loại thành công  `, "success")
@@ -206,7 +206,7 @@ export default function DashboardNewsCreate(props) {
                     <div className="flex-center-dashboard" style={{ marginTop: '40px' }}>
                         <button className="create-box-btn btn">
                             Edit Poster
-                    </button>
+                        </button>
                     </div>
                 </form>
             </div>

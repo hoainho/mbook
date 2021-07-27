@@ -22,12 +22,12 @@ export default function BlogItem(props) {
                     <div className="blog__container-main-wrapper-post-content">
                         <h5 className="blog__container-main-wrapper-post-content-title" style={{ fontWeight: 'bold' }}>{poster?.title}</h5>
                         <p className="blog__container-main-wrapper-post-content-text">
-                            {poster?.content}
+                            {poster?.description}
                         </p>
                     </div>
                 </div>
                 <div className="blog__container-main-wrapper-control">
-                    <Link to={`/blogDetails/${poster?.id}`} className="blog__container-main-wrapper-control-btn">
+                    <Link to={`/blogDetails/${poster?.idPoster}`} className="blog__container-main-wrapper-control-btn">
                         Đọc Tiếp
                     </Link>
 

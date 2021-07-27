@@ -29,7 +29,7 @@ export default function DashboardUserCreate(props) {
         event.preventDefault()
         inputValue.modifieddate = new Date();
         console.log({ inputValue });
-        requestAPI(`/account/update/${id}`, 'PUT', inputValue, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/account/${id}`, 'PUT', inputValue, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res.data === false) {
                     notificationCustom("Nhắc Nhở", `Bạn không đủ quyền `, "warning")

@@ -18,7 +18,7 @@ export default function DashboardUserTable(props) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        requestAPI(`/account/get`, 'GET', null, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/account`, 'GET', null, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 console.log({ account: res.data });
                 setUser(res.data)
@@ -107,7 +107,7 @@ export default function DashboardUserTable(props) {
     }
 
     const deleteAccount = (id) => {
-        requestAPI(`/account/delete/${id}`, 'DELETE', id, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/account/${id}`, 'DELETE', id, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     notificationCustom("Thông Báo", `Xóa thành công  `, "success")

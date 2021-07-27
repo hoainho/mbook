@@ -27,7 +27,7 @@ export default function DashboardMain() {
     const [incomeMonthPercent, setIncomeMonthPercent] = useState({})
 
     useEffect(() => {
-        requestAPI('/product/get', 'GET')
+        requestAPI('/product', 'GET')
             .then(res => {
                 if (res) {
                     setProducts(res.data)
@@ -50,7 +50,7 @@ export default function DashboardMain() {
                     console.log('ERROR :' + err);
                 }
             })
-        requestAPI(`/account/get`, 'GET')
+        requestAPI(`/account`, 'GET')
             .then(res => {
                 if (res) {
                     setUser(res.data)
@@ -59,7 +59,7 @@ export default function DashboardMain() {
             .catch(err => {
                 console.log("Faild from server : ", err);
             })
-        requestAPI('/order/get', 'GET')
+        requestAPI('/order', 'GET')
             .then(res => {
                 setOrder(res.data)
                 const customerList = Object.values(res.data.reduce((a, { createdby, id, total, numberPhone }) => {

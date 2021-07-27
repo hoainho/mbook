@@ -33,7 +33,7 @@ export default function DashboardProductTable(props) {
     const [isSortBySold, setIsSortBySold] = useState(false)
 
     useEffect(() => {
-        requestAPI('/product/get', 'GET')
+        requestAPI('/product', 'GET')
             .then(res => {
                 if (res) {
                     setProducts(res.data)
@@ -125,7 +125,7 @@ export default function DashboardProductTable(props) {
     }
 
     const deleteOnClick = (event) => {
-        requestAPI(`/product/delete/${event.target.id}`, 'DELETE', { id: event.target.id }, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/product/${event.target.id}`, 'DELETE', { id: event.target.id }, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     notificationCustom("Thông Báo", `Xóa thành công  `, "success")
@@ -214,8 +214,8 @@ export default function DashboardProductTable(props) {
             if (isSortBySale) {
                 const sortBySale = [...products]
                 sortBySale.sort(function (a, b) {
-                    var saleA = a.pricePresent;
-                    var saleB = b.pricePresent;
+                    var saleA = a.priceSale;
+                    var saleB = b.priceSale;
                     if (saleA === saleB) return 0;
                     return saleA > saleB ? 1 : -1;
                 })
@@ -224,8 +224,8 @@ export default function DashboardProductTable(props) {
             } else {
                 const sortBySale = [...products]
                 sortBySale.sort(function (a, b) {
-                    var saleA = a.pricePresent;
-                    var saleB = b.pricePresent;
+                    var saleA = a.priceSale;
+                    var saleB = b.priceSale;
                     if (saleA === saleB) return 0;
                     return saleA < saleB ? 1 : -1;
                 })
@@ -328,9 +328,9 @@ export default function DashboardProductTable(props) {
                                                 <p>{item.priceOld.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</p>
                                             </td>
                                             <td>
-                                                {item.pricePresent ? <p>{item.pricePresent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</p> : ''}
+                                                {item.priceSale ? <p>{item.priceSale.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</p> : ''}
                                             </td>
-                                            { item.sale === false ?
+                                            {item.sale === false ?
                                                 <td className="table-mobile-productsale">
                                                     <p style={{ color: 'red' }}>NO</p>
                                                 </td>
@@ -339,7 +339,7 @@ export default function DashboardProductTable(props) {
                                                     <p style={{ color: 'green' }}>SALE</p>
                                                 </td>
                                             }
-                                            { item.hot === false ?
+                                            {item.hot === false ?
                                                 <td className="table-mobile-productsale">
                                                     <p style={{ color: 'red' }}>NO</p>
                                                 </td>

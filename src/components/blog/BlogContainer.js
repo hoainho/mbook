@@ -7,7 +7,7 @@ export default function BlogContainer(props) {
     const [postAPI, setPostAPI] = useState([])
     const { posterList } = props
     useEffect(() => {
-        requestAPI('/poster/get', 'GET')
+        requestAPI('/poster', 'GET')
             .then(res => {
                 if (res) {
                     console.log({ post: res.data });

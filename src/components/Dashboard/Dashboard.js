@@ -95,7 +95,7 @@ function Dashboard(props) {
         if (!acc || !acc.username || !acc.password) {
             notificationCustom("Nhắc Nhở", "Vui lòng nhập đầy đủ các trường", "danger")
         } else if (acc) {
-            requestAPI('/account/dashboard/signin', 'POST', acc)
+            requestAPI('/account/signinDashboard', 'POST', acc)
                 .then(res => {
                     setAdminAccount(res.data)
                     setIsLogin(false);
@@ -179,7 +179,7 @@ function Dashboard(props) {
         <div>
             <Notification />
             <ReactNotification />
-            { isLogin
+            {isLogin
                 ?
                 <div className="Dashboard" style={{
                     height: "100vh",

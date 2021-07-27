@@ -24,7 +24,7 @@ export default function DashboardProductEdit(props) {
             hot: false,
             sale: false,
             priceOld: '',
-            pricePresent: '',
+            priceSale: '',
             authorName: '',
             createddate: '',
             modifieddate: '',
@@ -35,7 +35,7 @@ export default function DashboardProductEdit(props) {
     const [authorNew, setAuthorNew] = useState([])
     const [cateValue, setCateValue] = useState("")
     const product = useSelector((state) => state.product)
-    const { id, name, imageBef, imageAf, author, priceOld, pricePresent, quantity, rating, thumbnails, categoryId, hot, description } = product.productEdit.product
+    const { id, name, imageBef, imageAf, author, priceOld, priceSale, quantity, rating, thumbnails, categoryId, hot, description } = product.productEdit.product
     const handleOnChange = (event) => {
         setInputValue({ ...inputValue, [event.target.name]: event.target.value })
     }
@@ -50,12 +50,12 @@ export default function DashboardProductEdit(props) {
             rating,
             priceOld,
             hot,
-            pricePresent,
+            priceSale,
             authorName: author.name,
             createddate: '',
             category: categoryId[0]?.name
         })
-        requestAPI('/category/get', 'GET')
+        requestAPI('/category', 'GET')
             .then(res => {
                 if (res) {
                     setCate(res.data)
@@ -66,7 +66,7 @@ export default function DashboardProductEdit(props) {
                     console.log('ERROR :' + err);
                 }
             })
-        requestAPI('/author/get', 'GET')
+        requestAPI('/author', 'GET')
             .then(res => {
                 if (res) {
                     setAuthorNew(res.data)
@@ -83,14 +83,14 @@ export default function DashboardProductEdit(props) {
         event.preventDefault()
         inputValue.modifieddate = new Date();
         // inputValue.hot = true ( Tạo HOT )
-        if (inputValue.pricePresent) {
+        if (inputValue.priceSale) {
             inputValue.sale = true
         } else {
             inputValue.sale = false
         }
         //post id
         console.log({ inputValue });
-        requestAPI(`/product/update/${id}`, 'PUT', inputValue, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/product/${id}`, 'PUT', inputValue, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res.data) {
                     notificationCustom("Thông Báo", `Cập Nhật Sản Phẩm Thành Công `, "success")
@@ -111,7 +111,7 @@ export default function DashboardProductEdit(props) {
     }
 
     const addNewCate = () => {
-        requestAPI('/category/upload', 'POST', { name: inputValue.cate }, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI('/category', 'POST', { name: inputValue.cate }, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     notificationCustom("Thông Báo", `Thêm Thể Loại thành công  `, "success")
@@ -285,7 +285,7 @@ export default function DashboardProductEdit(props) {
                     <div className="create-box-row flex">
                         <div className="dashboard-left flex">Giá Sale : </div>
                         <div className="dashboard-right">
-                            <input type="number" name="pricePresent" value={inputValue.pricePresent} placeholder="VNĐ" onChange={handleOnChange} ></input>
+                            <input type="number" name="priceSale" value={inputValue.priceSale} placeholder="VNĐ" onChange={handleOnChange} ></input>
                         </div>
 
                     </div>
@@ -343,7 +343,7 @@ export default function DashboardProductEdit(props) {
                     <div className="flex-center-dashboard" style={{ marginTop: '40px' }}>
                         <button className="create-box-btn btn">
                             Cập Nhật Sản Phẩm
-                    </button>
+                        </button>
                     </div>
                 </form>
             </div>

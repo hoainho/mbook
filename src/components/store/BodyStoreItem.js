@@ -69,7 +69,7 @@ export default function BodyStoreItem(props) {
                             </div>
 
                             <div className="popularBook__item-img-sub-control">
-                                <Link to={`/details/${book.id}`} className={classnames('popularBook__item-img-sub--aniThir', { 'popularBook__item-img-sub--aniThir--grid': gridTab !== 0 })}><i className="fa fa-eye " aria-hidden="true" ></i></Link>
+                                <Link to={`/details/${book.idProduct}`} className={classnames('popularBook__item-img-sub--aniThir', { 'popularBook__item-img-sub--aniThir--grid': gridTab !== 0 })}><i className="fa fa-eye " aria-hidden="true" ></i></Link>
                                 <Link onClick={() => handleAddToCart(book)} className={classnames('popularBook__item-img-sub--aniFr', { 'popularBook__item-img-sub--aniFr--grid': gridTab !== 0 })}><i className="fa fa-cart-plus" aria-hidden="true"></i></Link>
                             </div>
 
@@ -79,12 +79,12 @@ export default function BodyStoreItem(props) {
                         {book.name}
                     </div>
                     <div className={classnames("bodyStoreItem__author", { "bodyStoreItem__author--grid": gridTab !== 0 })}>
-                        {book.author?.name}
+                        {book.idAuthorNavigation?.name}
                     </div>
                     <div className={classnames("bodyStoreItem__price", { "bodyStoreItem__price--grid": gridTab !== 0 })}>
-                        <span className={book.pricePresent ? "bodyStoreItem__price-old" : 'bodyStoreItem__price-new'}>{book.priceOld?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ</span>
+                        <span className={book.priceSale ? "bodyStoreItem__price-old" : 'bodyStoreItem__price-new'}>{book.priceOld?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ</span>
 
-                        {book.pricePresent ? <span className='bodyStoreItem__price-new'>{book.pricePresent ? `${book.pricePresent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ` : ''}</span>
+                        {book.priceSale ? <span className='bodyStoreItem__price-new'>{book.priceSale ? `${book.priceSale.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ` : ''}</span>
                             : ""}
                     </div>
                 </div>

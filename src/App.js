@@ -19,10 +19,12 @@ function App(props) {
   const dispatch = useDispatch()
   const account = useSelector(state => state.account)
   useEffect(() => {
-    requestAPI(`/cart/get`, 'GET', null, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+    requestAPI(`/cart/load`, 'GET', null, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
       .then(res => {
         if (res) {
-          console.log({ res: res.data });
+          console.log({
+            Mycart: res.data
+          });
           dispatch(cartReceived(res.data));
         }
       })
@@ -36,7 +38,7 @@ function App(props) {
           }
         }
       })
-    requestAPI(`/discount/get`, 'GET', null, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+    requestAPI(`/discount`, 'GET', null, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
       .then(res => {
         if (res) {
           dispatch(discountReceived(res.data));

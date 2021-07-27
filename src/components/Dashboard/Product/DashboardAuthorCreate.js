@@ -29,7 +29,7 @@ export default function DashboardAuthorCreate(props) {
     const onSubmit = (event) => {
         event.preventDefault()
         inputValue.createddate = new Date();
-        requestAPI('/author/upload', 'POST', inputValue, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI('/author', 'POST', inputValue, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 console.log(res.data);
                 if (res.data === "Tác Giả Đã Tồn Tại") {
@@ -148,7 +148,7 @@ export default function DashboardAuthorCreate(props) {
                     <div className="flex-center-dashboard" style={{ marginTop: '40px' }}>
                         <button type="submit" className="create-box-btn btn">
                             Thêm Tác Giả
-                    </button>
+                        </button>
                     </div>
                 </form>
             </div>

@@ -8,7 +8,7 @@ export default function DashboardOrderCreate(props) {
     const [orderInfo, setOrderInfo] = useState();
     const orderState = useSelector(state => state.order)
     useEffect(() => {
-        requestAPI(`/order/details/${orderState?.idView}`, 'GET')
+        requestAPI(`/order/${orderState?.idView}`, 'GET')
             .then(res => {
                 setOrderInfo(res.data)
                 console.log({ data: res.data });

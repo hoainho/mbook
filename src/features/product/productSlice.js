@@ -18,6 +18,7 @@ export const productSlice = createSlice({
             state.productEdit = { ...state.productEdit, product: payload }
         },
         filter: (state, action) => {
+            console.log({ filter: state.productList });
             if (action.payload === "0") {
                 state.productFilter = state.productList
             } else if (action.payload === "1") {
@@ -48,7 +49,7 @@ export const productSlice = createSlice({
             } else if (action.payload.type === "author") {
                 state.productFilter = []
                 state.productList.map(item => {
-                    if (item.author.name === action.payload.value) {
+                    if (item.idAuthorNavigation?.name === action.payload.value) {
                         state.productFilter.push(item);
                     } else if (action.payload.value === "all") {
                         state.productFilter = state.productList
@@ -57,7 +58,7 @@ export const productSlice = createSlice({
             } else if (action.payload.type === "price") {
                 state.productFilter = []
                 state.productList.map(item => {
-                    let price = item.pricePresent ? item.pricePresent : item.priceOld
+                    let price = item.priceSale ? item.priceSale : item.priceOld
                     if (price >= action.payload.value[0]
                         && price <= action.payload.value[1]) {
                         console.log("name :", item.name, " - ", price);

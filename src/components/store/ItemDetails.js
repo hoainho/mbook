@@ -18,10 +18,11 @@ export default function Itemdetails() {
     const account = useSelector(state => state.account)
     //function
     useEffect(() => {
-        requestAPI(`/product/details/${idProduct}`, 'GET')
+        requestAPI(`/product/${idProduct}`, 'GET')
             .then(res => {
+                console.log({ product: res.data });
                 setDetails(res.data)
-                console.log({ data: res.data });
+
             })
             .catch(err => {
                 console.log("Faild from server : ", err);
@@ -57,6 +58,7 @@ export default function Itemdetails() {
         setRotate(newRotate);
     }
     const addCart = (products) => {
+        console.log({ pro: products });
         if (localStorage.getItem("TOKEN") !== null) {
             products.quantity = number
             dispatch(addToCart(products))
@@ -118,7 +120,7 @@ export default function Itemdetails() {
                                     </span>
                                     <span className="details__image-control-rotate-text">
                                         Xoay
-                                </span>
+                                    </span>
                                 </div>
                                 <div className="details__image-control-look" onClick={() => setVisible(true)}>
                                     <span className="details__image-control-look-icon">
@@ -126,7 +128,7 @@ export default function Itemdetails() {
                                     </span>
                                     <span className="details__image-control-look-text">
                                         Xem Bên Trong
-                                </span>
+                                    </span>
                                 </div>
                             </div>
 
@@ -177,8 +179,8 @@ export default function Itemdetails() {
                             </div>
                             {/* Price */}
                             <div className="details__content-book-price">
-                                {details?.pricePresent
-                                    ? <span className="details__content-book-price-text">{details?.pricePresent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</span>
+                                {details?.priceSale
+                                    ? <span className="details__content-book-price-text">{details?.priceSale.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</span>
                                     : <span className="details__content-book-price-text">{details?.priceOld.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</span>}
 
 
@@ -210,27 +212,27 @@ export default function Itemdetails() {
                                 <li className="details__content-infomation-item">
                                     <span className="details__content-infomation-text--title">
                                         Tác Giả:
-                                   </span>
-                                    <Link to={`/author/${details?.author.id}`} className="details__content-infomation-text">
-                                        {details?.author?.name}
+                                    </span>
+                                    <Link to={`/author/${details?.idAuthor}`} className="details__content-infomation-text">
+                                        {details?.idAuthorNavigation.name}
                                     </Link>
                                 </li>
                                 <li className="details__content-infomation-item">
                                     <span className="details__content-infomation-text--title">
                                         Ngày Xuất Bản:
-                                   </span>
+                                    </span>
                                     <span className="details__content-infomation-text">
                                         1-1-2000
-                                   </span>
+                                    </span>
                                 </li>
                                 <li className="details__content-infomation-item">
                                     <span className="details__content-infomation-text--title">
                                         Thể Loại:
-                                   </span>
+                                    </span>
                                     <span className="details__content-infomation-text">
-                                        {details?.categoryId.map(item => {
+                                        {details?.categoryProducts.map(item => {
                                             return (
-                                                item.name
+                                                `📌${item.idCategoryNavigation.name}   `
                                             )
                                         })}
                                     </span>
@@ -238,7 +240,7 @@ export default function Itemdetails() {
                                 <li className="details__content-infomation-item">
                                     <span className="details__content-infomation-text--title">
                                         Chia Sẻ:
-                                   </span>
+                                    </span>
                                     <div className="details__content-infomation-share">
                                         <span className="details__content-infomation-share-icon">
                                             <i class="fa fa-facebook" aria-hidden="true"></i>

@@ -20,7 +20,7 @@ export default function DashboardNewsTable(props) {
     const [constNews, setConstNews] = useState([])
 
     useEffect(() => {
-        requestAPI(`/poster/get`, 'GET')
+        requestAPI(`/poster`, 'GET')
             .then(res => {
                 console.log(res.data);
                 setNews(res.data)
@@ -108,7 +108,7 @@ export default function DashboardNewsTable(props) {
         }
     }
     const deletePoster = (id) => {
-        requestAPI(`/poster/delete/${id}`, 'DELETE', id, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/poster/${id}`, 'DELETE', id, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     notificationCustom("Thông Báo", `Xóa thành công  `, "success")

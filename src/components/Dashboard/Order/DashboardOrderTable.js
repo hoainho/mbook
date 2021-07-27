@@ -19,7 +19,7 @@ export default function DashboardUserTable(props) {
     const [isSortByTotal, setIsSortByTotal] = useState(false)
     const [constOrder, setConstOrder] = useState([])
     useEffect(() => {
-        requestAPI(`/order/get`, 'GET')
+        requestAPI(`/order`, 'GET')
             .then(res => {
                 console.log({ order: res.data });
                 setOrder(res.data)
@@ -108,7 +108,7 @@ export default function DashboardUserTable(props) {
     }
 
     const deleteOnClick = (id) => {
-        requestAPI(`/order/delete/${id}`, 'DELETE', id, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/order/${id}`, 'DELETE', id, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     notificationCustom("Thông Báo", `Xóa thành công  `, "success")

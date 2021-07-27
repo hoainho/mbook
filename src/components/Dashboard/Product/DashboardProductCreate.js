@@ -26,7 +26,7 @@ export default function DashboardProductCreate(props) {
             hot: false,
             sale: false,
             priceOld: '',
-            pricePresent: '',
+            priceSale: '',
             authorName: '',
             createddate: ''
         }
@@ -72,7 +72,7 @@ export default function DashboardProductCreate(props) {
     }
 
     useEffect(() => {
-        requestAPI('/category/get', 'GET')
+        requestAPI('/category', 'GET')
             .then(res => {
                 if (res) {
                     setCate(res.data)
@@ -83,7 +83,7 @@ export default function DashboardProductCreate(props) {
                     console.log('ERROR :' + err);
                 }
             })
-        requestAPI('/author/get', 'GET')
+        requestAPI('/author', 'GET')
             .then(res => {
                 if (res) {
                     setAuthor(res.data)
@@ -100,12 +100,12 @@ export default function DashboardProductCreate(props) {
         event.preventDefault()
         inputValue.createddate = new Date();
         console.log({ inputValue });
-        if (inputValue.pricePresent !== "") {
+        if (inputValue.priceSale !== "") {
             inputValue.sale = true
         } else {
             inputValue.sale = false
         }
-        requestAPI('/product/upload', 'POST', inputValue, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI('/product', 'POST', inputValue, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     notificationCustom("Thông Báo", `Thêm Sản Phẩm thành công  `, "success")
@@ -125,7 +125,7 @@ export default function DashboardProductCreate(props) {
     }
 
     const addNewCate = () => {
-        requestAPI('/category/upload', 'POST', { name: inputValue.cate }, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI('/category', 'POST', { name: inputValue.cate }, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     notificationCustom("Thông Báo", `Thêm Thể Loại thành công  `, "success")
@@ -325,7 +325,7 @@ export default function DashboardProductCreate(props) {
                     <div className="create-box-row flex">
                         <div className="dashboard-left flex">Giá Sale : </div>
                         <div className="dashboard-right">
-                            <input type="number" name="pricePresent" placeholder="VNĐ" onChange={handleOnChange} ></input>
+                            <input type="number" name="priceSale" placeholder="VNĐ" onChange={handleOnChange} ></input>
                         </div>
 
                     </div>

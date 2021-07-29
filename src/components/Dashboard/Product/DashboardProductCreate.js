@@ -111,7 +111,6 @@ export default function DashboardProductCreate(props) {
     const onSubmit = (event) => {
         event.preventDefault()
         inputValue.createddate = new Date();
-        console.log({ inputValue });
         if (inputValue.priceSale !== "") {
             inputValue.sale = true
         } else {
@@ -129,7 +128,7 @@ export default function DashboardProductCreate(props) {
                     if (err.response.status === 403) {
                         notificationCustom("Nhắc Nhở", `Bạn không đủ quyền `, "warning")
                     }
-                    if (err.response.status === 500) {
+                    if (err.response.status === 500 || err.response.status === 400) {
                         notificationCustom("Nhắc Nhở", `Vui lòng nhập thông tin theo đúng yêu cầu`, "warning")
                     }
                 }

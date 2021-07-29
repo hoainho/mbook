@@ -72,13 +72,13 @@ export default function DashboardOrderCreate(props) {
                                                 key={index}
                                                 className="order-list-item"
                                             >
-                                                <p style={{ fontWeight: "bold", width: '15%' }}>  #{index + 1} </p>
+                                                <p style={{ fontWeight: "bold", width: '15%' }}>  <p class="index-circle">#{index + 1}</p> </p>
                                                 <img src={item?.idProductNavigation?.imageBef} alt="imageProduct"></img>
                                                 <p style={{ fontWeight: "bold", width: '40%' }}>  {item?.idProductNavigation?.name}</p>
-                                                <div style={{ display: 'flex', alignItems: 'center', width: '20%' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', width: '15%' }}>
                                                     Số Lượng : <p style={{ fontWeight: "bold" }}>{item.quantity}</p>
                                                 </div>
-                                                <div style={{ display: 'flex', alignItems: 'center', width: '15%' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', width: '20%', whiteSpace: "nowrap", justifyContent: " space-between" }}>
                                                     Tổng Tiền : <p style={{ fontWeight: "bold" }}>{item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</p>
                                                 </div>
                                             </div>

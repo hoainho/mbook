@@ -294,19 +294,19 @@ export default function DashboardUserTable(props) {
                                                     >
                                                         <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faEye} />
                                                     </div>
-                                                    <div
+                                                    {/* <div
                                                         className="action-item flex-center-dashboard action-green"
                                                         // onClick={props.setOpenEditFunc}
                                                         id={item.id}
                                                     >
                                                         <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faPencilAlt} />
-                                                    </div>
-                                                    <div
+                                                    </div> */}
+                                                    {/* <div
                                                         className="action-item flex-center-dashboard action-red"
                                                         onClick={() => deleteOnClick(item.id)}
                                                     >
                                                         <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faTimes} />
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                             </td>
                                         </tr>

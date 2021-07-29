@@ -118,7 +118,7 @@ export default function Navbar(props) {
         }
     }
     const handleRegister = (accountRegister) => {
-        console.log({ accountRegister })
+
         requestAPI('/account/signup', 'POST', accountRegister)
             .then(res => {
 

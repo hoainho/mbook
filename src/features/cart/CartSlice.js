@@ -5,7 +5,8 @@ import notificationCustom from '../../notification/index';
 
 const initState = {
     detailCarts: [],
-    totalPrice: 0
+    totalPrice: 0,
+    idCart: ''
 }
 export const CartSlice = createSlice({
     name: 'cart',
@@ -177,12 +178,14 @@ export const CartSlice = createSlice({
         },
         cartReceived: (state, action) => {
             console.log({ cartload: action.payload });
-            if (action.payload.length > 0) {
-                action.payload.map(item => { if (item.checkout === false) { return state.Carts = item, state.numberCart = item.quantity } })
+            if (action.payload != null) {
+                state.Carts.detailCarts = action.payload.detailCarts
+                state.Carts.totalPrice = action.payload.totalPrice
+                state.Carts.idCart = action.payload.idCart
+                state.numberCart = action.payload.quantity
             }
         },
         cartCheckout: (state, action) => {
-            console.log({ checkoutFunction: action.payload });
             state.Carts = initState
             state.numberCart = 0
         },

@@ -38,8 +38,8 @@ export const productSlice = createSlice({
             } else if (action.payload.type === "category") {
                 state.productFilter = []
                 state.productList.map(item => {
-                    if (item.categoryId[0]?.name === action.payload.value) {
-                        console.log(item.categoryId[0]?.name);
+                    if (item.categoryProducts[0]?.idCategoryNavigation?.name === action.payload.value) {
+                        console.log(item.categoryProducts[0]?.idCategoryNavigation?.name);
                         console.log("true");
                         state.productFilter.push(item);
                     } else if (action.payload.value === "all") {

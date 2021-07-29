@@ -1825,6 +1825,15 @@ a:hover {
   border: none;
   outline: none; }
 
+.index-circle {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  background-color: var(--clr-primary);
+  opacity: 0.5;
+  border-radius: 50%;
+  border: 1px solid; }
+
 .home {
   overflow: hidden; }
   .home h1 {

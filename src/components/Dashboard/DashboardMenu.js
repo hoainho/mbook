@@ -24,7 +24,8 @@ export default function DashboardMenu(props) {
         if (openMenu === true) setHideText(false)
     }, [setHideText, openMenu])
     useEffect(() => {
-        if (localStorage.getItem('USERNAME')) {
+        console.log({ userInfo: props.userInfo });
+        if (!props.userInfo && localStorage.getItem('USERNAME')) {
             setFullname(localStorage.getItem('USERNAME'))
         }
     }, [])
@@ -60,9 +61,14 @@ export default function DashboardMenu(props) {
                         <div className="db-menu-avt flex-center-dashboard">
                             <img alt="" src={avatar}></img>
                         </div>
-                        {(hideText === false && props.userInfo) && <p className="db-menu-name" style={{ marginLeft: '26px' }}>
-                            {props.userInfo.fullname ? props.userInfo.fullname : fullname}
-                        </p>}
+                        {(hideText === false && props.userInfo)
+                            ? <p className="db-menu-name" style={{ marginLeft: '26px' }}>
+                                {props.userInfo.fullname}
+                            </p>
+                            : <p className="db-menu-name" style={{ marginLeft: '26px' }}>
+                                {fullname}
+                            </p>
+                        }
                         {hideText === false && openUserOpt === true && <FontAwesomeIcon icon={faAngleUp} style={{ fontSize: '18px' }} />}
                         {hideText === false && openUserOpt === false && <FontAwesomeIcon icon={faAngleDown} style={{ fontSize: '18px' }} />}
                     </div>

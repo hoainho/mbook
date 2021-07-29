@@ -52,7 +52,7 @@ export default function Cart() {
 
     }, [LengthCart, listCode])
     useEffect(() => {
-        requestAPI(`/cart`, 'GET', null, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/cart/load`, 'GET', null, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     dispatch(cartReceived(res.data));
@@ -180,6 +180,7 @@ export default function Cart() {
         setInfoBill({ ...infoBill, [e.target.name]: e.target.value })
     }
     const handleOrder = (event) => {
+        console.log({ idBill: data });
         event.preventDefault();
         let bill = { ...infoBill, createddate: new Date(), IdDiscountNavigation: { idDiscount: listCode?.idDiscount }, idBill: data?.idCart, idDiscount: listCode?.idDiscount, total: totalBill, totalMoneyProduct, ship: moneyShip, quantity: LengthCart }
         console.log({ bill });
@@ -187,7 +188,8 @@ export default function Cart() {
             .then(res => {
                 if (res) {
                     notificationCustom("Thông Báo", `Đặt Hàng Thành Công`, "success")
-                    console.log({ response: res.data });
+                    dispatch(cartCheckout());
+                    setIsBill(false);
                     ////////////////////////////////
                     // requestAPI(`/cart/${data.id}`, 'PUT', bill, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
                     //     .then(res => {

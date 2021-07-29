@@ -28,20 +28,18 @@ export default function DashboardUserCreate(props) {
     const onSubmit = (event) => {
         event.preventDefault()
         inputValue.modifieddate = new Date();
+        inputValue.status = JSON.parse(inputValue.status);
         console.log({ inputValue });
         requestAPI(`/account/PutAccount/${idAccount}`, 'PUT', inputValue, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
-                if (res.data === false) {
-                    notificationCustom("Nhắc Nhở", `Bạn không đủ quyền `, "warning")
-                }
-                if (res.data) {
-                    notificationCustom("Thông Báo", `Cập Nhật Tài Khoản Thành Công `, "success")
-                    props.setToastFunc(true)
-
-                }
+                console.log({ res: res.data });
+                notificationCustom("Thông Báo", `Cập Nhật Tài Khoản Thành Công `, "success")
+                props.setToastFunc(true)
             })
             .catch(err => {
                 if (err.response) {
+                    console.log({ err: err.response });
+
                     if (err.response.status === 403) {
                         notificationCustom("Nhắc Nhở", `Chứng thực tài khoản đã hết hạn, vui lòng đăng nhập lại để thực hiện các chức năng`, "warning")
                     }
@@ -124,8 +122,8 @@ export default function DashboardUserCreate(props) {
                                 onChange={(event) => { setInputValue({ ...inputValue, status: event.target.value }) }} required
                             >
                                 <option></option>
-                                <option value={false}>Vô Hiệu Hóa</option>
-                                <option value={true}>Kích Hoạt</option>
+                                <option value={true}>Vô Hiệu Hóa</option>
+                                <option value={false}>Kích Hoạt</option>
                             </select>
                         </div>
                     </div>

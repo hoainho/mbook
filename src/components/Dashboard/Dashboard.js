@@ -112,7 +112,7 @@ function Dashboard(props) {
                     setAdminAccount(res.data)
                     setIsLogin(false);
                     notificationCustom("Thông Báo", `Xin Chào, ${res.data.fullname}`, "success")
-                    localStorage.setItem('TOKEN', res.data.token)
+                    localStorage.setItem('TOKEN', res.data.accessToken)
                     localStorage.setItem('USERNAME', res.data.fullname)
                     // window.location.reload();
                 })

@@ -50,6 +50,7 @@ export default function HeaderControl(props) {
         })
     }
     const handleRegister = (accountRegister) => {
+        accountRegister.createddate = new Date();
         if (!ckbRule) {
             notificationCustom("Nhắc Nhở", `Vui lòng chấp nhận điều khoản của M-book`, "warning")
             return;

@@ -70,7 +70,7 @@ export const productSlice = createSlice({
         },
         findByAuthor: (state, action) => {
             state.productList.map(item => {
-                if (item.author.id === action.payload) {
+                if (item.idAuthorNavigation?.id === action.payload) {
                     state.productByAuthor.push(item);
                 }
             })

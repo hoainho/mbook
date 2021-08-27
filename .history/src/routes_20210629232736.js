@@ -5,7 +5,7 @@ import ScreenStore from './screens/store/ScreenStore';
 import ItemDetails from './components/store/ItemDetails';
 import Author from './components/store/Author';
 import Blog from './components/blog/BlogMain';
-import BlogDetails from './components/blog/BlogDetails_Fix';
+import BlogDetails from './components/blog/BlogDetails';
 import Cart from './components/store/Cart';
 import Review from './components/reviews/Review';
 import ReviewDetails from './components/reviews/ReviewDetails';

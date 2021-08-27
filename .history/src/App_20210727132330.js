@@ -10,6 +10,7 @@ import routes from './routes';
 import Header from './components/header/Header';
 import Navbar from './components/navbar/Navbar';
 import ScrollToTop from './components/ScrollToTop';
+import Footer from './components/footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartReceived, discountReceived } from '../src/features/cart/CartSlice';
 import requestAPI from '../src/api/index';

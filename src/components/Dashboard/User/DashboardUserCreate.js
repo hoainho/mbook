@@ -20,7 +20,7 @@ export default function DashboardUserCreate(props) {
         event.preventDefault()
         inputValue.createddate = new Date();
         console.log({ inputValue });
-        requestAPI(`/account/signup`, 'POST', inputValue, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/account/signup`, 'POST', inputValue, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res.data === false) {
                     notificationCustom("Nhắc Nhở", `Bạn không đủ quyền `, "warning")

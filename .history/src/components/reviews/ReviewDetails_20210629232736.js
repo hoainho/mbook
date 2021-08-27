@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ReviewsDetails from '../blog/BlogDetails_Fix';
+import ReviewsDetails from '../blog/BlogDetails';
 export default function ReviewDetails() {
     const [value, setValue] = useState('');
     const [liked, setLiked] = useState(false);

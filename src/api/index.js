@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default async function requestAPI(url, method, body, injectHeader) {
-    let urlOrigin = 'http://localhost:8080'
+    let urlOrigin = 'https://localhost:44351/api'
     const headers = {
         'Content-Type': 'application/json',
         // 'Content-Type': 'multipart/form-data',

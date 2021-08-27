@@ -4,8 +4,9 @@ import requestAPI from '../../api/index';
 import notificationCustom from '../../notification/index';
 
 const initState = {
-    listProduct: [],
-    totalPrice: 0
+    detailCarts: [],
+    totalPrice: 0,
+    idCart: ''
 }
 export const CartSlice = createSlice({
     name: 'cart',
@@ -16,38 +17,54 @@ export const CartSlice = createSlice({
     },
     reducers: {
         addToCart: (state, action) => {
-            console.log({ payload: action.payload });
-            if (state.Carts.listProduct.length > 0) {
+            if (state.Carts?.detailCarts?.length > 0) {
                 let check = false;
-                state.Carts.listProduct.map((item, key) => {
-                    if (item.id == action.payload.id) {
-                        state.Carts.listProduct[key].quantity += action.payload.quantity;
-                        state.Carts.totalPrice += (item.pricePresent ? item.pricePresent : item.priceOld) * action.payload.quantity
+                state.Carts.detailCarts.map((item, key) => {
+                    if (item.idProduct == action.payload.idProduct) {
+                        if (state.Carts.detailCarts[key].quantity < 1) {
+                            state.Carts.detailCarts.splice(key, 1);
+                        } else {
+                            state.Carts.detailCarts[key].quantity += action.payload.quantity;
+                            state.Carts.totalPrice += (action.payload.priceSale
+                                ? action.payload.priceSale : action.payload.priceOld) * action.payload.quantity
+                        }
+
                         check = true
-                        console.log('1');
                     }
                 })
                 if (!check) {
-                    state.Carts.totalPrice = state.Carts.totalPrice + (action.payload.pricePresent ? action.payload.pricePresent : action.payload.priceOld) * action.payload.quantity
-                    state.Carts?.listProduct.push(action.payload)
-                    console.log('2');
+                    let item = {
+                        idProduct: action.payload.idProduct,
+                        idProductNavigation: action.payload,
+                        quantity: action.payload.quantity,
+                        total: (action.payload.priceSale ? action.payload.priceSale : action.payload.priceOld) * action.payload.quantity
+                    }
+                    state.Carts.totalPrice = state.Carts.totalPrice + (action.payload.priceSale ? action.payload.priceSale : action.payload.priceOld) * action.payload.quantity
+                    state.Carts?.detailCarts.push(item)
 
                 }
-            } else {
-                console.log('3');
-                state.Carts.listProduct.push(action.payload)
-                state.Carts.totalPrice = (action.payload.pricePresent ? action.payload.pricePresent : action.payload.priceOld) * action.payload.quantity
+            } else { // Cart Empty
+                let item = {
+                    idProduct: action.payload.idProduct,
+                    idProductNavigation: action.payload,
+                    quantity: action.payload.quantity,
+                    total: (action.payload.priceSale ? action.payload.priceSale : action.payload.priceOld) * action.payload.quantity
+                }
+                state.Carts?.detailCarts?.push(item)
+                state.Carts.totalPrice += (action.payload.priceSale ? action.payload.priceSale : action.payload.priceOld) * action.payload.quantity
             }
-            const dataFormat = { idProduct: action.payload.id, quantity: action.payload.quantity }
-            requestAPI(`/cart/upload`, 'POST', dataFormat, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+            let temp = [{ idProduct: action.payload.idProduct }]
+            const dataFormat = { detailCarts: temp, quantity: action.payload.quantity, totalPrice: (action.payload.priceSale ? action.payload.priceSale : action.payload.priceOld) * action.payload.quantity }
+            console.log({ dataFormat });
+            requestAPI(`/cart`, 'POST', dataFormat, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
                 .then(res => {
                     if (res) {
-                        notificationCustom("Thông Báo", `Thêm Sản Phẩm thành công  `, "success")
+                        notificationCustom("Thông Báo", `${res.data}`, "success")
                     }
                 })
                 .catch(err => {
                     if (err.response) {
-                        if (err.response.status === 403) {
+                        if (err.response.status === 401) {
                             notificationCustom("Nhắc Nhở", `Vui lòng đăng nhập để thực hiện chức năng này`, "warning")
                         }
                         if (err.response.status === 500) {
@@ -58,14 +75,15 @@ export const CartSlice = createSlice({
             state.numberCart += action.payload.quantity
         },
         deleteItem: (state, action) => {
-            var index = state.Carts.listProduct ? state.Carts.listProduct.map((item) => item.id).indexOf(action.payload.id) : -1;
-            let price = state.Carts.listProduct[index].pricePresent ? state.Carts.listProduct[index].pricePresent : state.Carts.listProduct[index].priceOld
+            console.log({ deleteItem: action.payload });
+            var index = state.Carts.detailCarts ? state.Carts.detailCarts.map((item) => item.id).indexOf(action.payload.id) : -1;
+            let price = state.Carts.detailCarts[index].priceSale ? state.Carts.detailCarts[index].priceSale : state.Carts.detailCarts[index].priceOld
             if (index !== -1) {
-                state.numberCart -= state.Carts.listProduct[index]?.quantity
-                state.Carts.totalPrice -= state.Carts.listProduct[index].quantity * price
-                state.Carts.listProduct.splice(index, 1);
+                state.numberCart -= action.payload.quantity
+                state.Carts.totalPrice -= action.payload.total
+                state.Carts.detailCarts.splice(index, 1);
             }
-            requestAPI(`/cart/delete/products/${action.payload.id}`, 'POST', action.payload.id, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+            requestAPI(`/cart/removeItem/${action.payload.id}`, 'DELETE', null, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
                 .then(res => {
                     if (res) {
                         notificationCustom("Thông Báo", `Xoa Sản Phẩm thành công  `, "success")
@@ -83,13 +101,15 @@ export const CartSlice = createSlice({
                 })
         },
         increarse: (state, action) => {
-            var index = state.Carts ? state.Carts.listProduct.map((item) => item.id).indexOf(action.payload.id) : -1;
+            var index = state.Carts ? state.Carts.detailCarts.map((item) => item.id).indexOf(action.payload.id) : -1;
             if (index !== -1) {
                 state.numberCart++
-                state.Carts.listProduct[index].quantity++;
-                state.Carts.totalPrice += state.Carts.listProduct[index].pricePresent ? state.Carts.listProduct[index].pricePresent : state.Carts.listProduct[index].priceOld
+                state.Carts.detailCarts[index].quantity++;
+                state.Carts.totalPrice += state.Carts.detailCarts[index].priceSale ? state.Carts.detailCarts[index].priceSale : state.Carts.detailCarts[index].priceOld
             }
-            requestAPI(`/cart/update/${action.payload.id}`, 'PUT', 1, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+            requestAPI(`/cart`, 'POST',
+                { quantity: 1, DetailCarts: [{ idProduct: action.payload.id }], price: action.payload.price, totalPrice: action.payload.totalPrice }
+                , { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
                 .then(res => {
                     if (res) {
                         console.log({ response: res.data });
@@ -108,14 +128,16 @@ export const CartSlice = createSlice({
                 })
         },
         decrearse: (state, action) => {
-            var index = state.Carts ? state.Carts.listProduct.map((item) => item.id).indexOf(action.payload.id) : -1;
+            var index = state.Carts ? state.Carts.detailCarts.map((item) => item.id).indexOf(action.payload.id) : -1;
             console.log({ index });
             if (index !== -1) {
-                if (state.Carts.listProduct[index].quantity > 0) {
-                    state.Carts.listProduct[index].quantity--;
-                    state.Carts.totalPrice -= state.Carts.listProduct[index].pricePresent ? state.Carts.listProduct[index].pricePresent : state.Carts.listProduct[index].priceOld;
+                if (state.Carts.detailCarts[index].quantity > 0) {
+                    state.Carts.detailCarts[index].quantity--;
+                    state.Carts.totalPrice -= state.Carts.detailCarts[index].priceSale ? state.Carts.detailCarts[index].priceSale : state.Carts.detailCarts[index].priceOld;
                     state.numberCart--
-                    requestAPI(`/cart/update/${action.payload.id}`, 'PUT', -1, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+                    requestAPI(`/cart/${action.payload.id}`
+                        , 'POST', { quantity: 1, DetailCarts: [{ idProduct: action.payload.id }], price: action.payload.price, totalPrice: action.payload.totalPrice }
+                        , { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
                         .then(res => {
                             if (res) {
                                 console.log({ response: res.data });
@@ -133,7 +155,7 @@ export const CartSlice = createSlice({
                             }
                         })
                 } else {
-                    state.Carts.listProduct.splice(index, 1);
+                    state.Carts.detailCarts.splice(index, 1);
                     requestAPI(`/cart/delete/products/${action.payload.id}`, 'POST', action.payload.id, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
                         .then(res => {
                             if (res) {
@@ -155,18 +177,20 @@ export const CartSlice = createSlice({
             }
         },
         cartReceived: (state, action) => {
-            if (action.payload.length > 0) {
-                action.payload.map(item => { if (item.checkout === false) { return state.Carts = item, state.numberCart = item.quantity } })
+            console.log({ cartload: action.payload });
+            if (action.payload != null) {
+                state.Carts.detailCarts = action.payload.detailCarts
+                state.Carts.totalPrice = action.payload.totalPrice
+                state.Carts.idCart = action.payload.idCart
+                state.numberCart = action.payload.quantity
             }
         },
         cartCheckout: (state, action) => {
-            console.log({ checkoutFunction: action.payload });
             state.Carts = initState
             state.numberCart = 0
         },
         discountReceived: (state, action) => {
             if (action.payload.length > 0) {
-                // console.log({ listDiscount: action.payload });   
                 state.DiscountMoney = action.payload
             }
         }

@@ -13,8 +13,8 @@ export default function DashboardNewsCreate(props) {
     const cateInput = useRef();
     const [inputValue, setInputValue] = useState({
         categoryId: [],
-        content: "",
-        id: "",
+        description: "",
+        idPoster: "",
         listlike: [],
         createdby: null,
         createddate: null,
@@ -28,12 +28,12 @@ export default function DashboardNewsCreate(props) {
         setInputValue({ ...inputValue, [event.target.name]: event.target.value })
     }
     const poster = useSelector((state) => state.poster)
-    const { categoryId, content, id, listlike, modifiedby, modifieddate, createdby, createddate, sub, title, urlImage } = poster.posterEdit.product
+    const { categoryId, description, idPoster, listlike, modifiedby, modifieddate, createdby, createddate, sub, title, urlImage } = poster.posterEdit.product
     useEffect(() => {
         setInputValue({
             categoryId,
-            content,
-            id,
+            description,
+            idPoster,
             listlike,
             modifiedby,
             modifieddate,
@@ -43,7 +43,7 @@ export default function DashboardNewsCreate(props) {
             title,
             urlImage
         })
-        requestAPI('/category/get', 'GET')
+        requestAPI('/category', 'GET')
             .then(res => {
                 if (res) {
                     setCate(res.data)
@@ -61,12 +61,11 @@ export default function DashboardNewsCreate(props) {
         event.preventDefault()
         console.log({ inputValue });
         inputValue.modifieddate = new Date();
-        requestAPI(`/poster/update/${id}`, 'PUT', inputValue, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/poster/${idPoster}`, 'PUT', inputValue, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res.data) {
-                    notificationCustom("Thông Báo", `Cập Nhật Sản Phẩm Thành Công `, "success")
+                    notificationCustom("Thông Báo", `${res.data}`, "success")
                     props.setToastFunc(true)
-                    console.log({ Status: res.data });
                 }
             })
             .catch(err => {
@@ -82,7 +81,7 @@ export default function DashboardNewsCreate(props) {
     }
 
     const addNewCate = () => {
-        requestAPI('/category/upload', 'POST', { name: inputValue.cate }, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI('/category', 'POST', { name: inputValue.cate }, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     notificationCustom("Thông Báo", `Thêm Thể Loại thành công  `, "success")
@@ -126,8 +125,8 @@ export default function DashboardNewsCreate(props) {
     const deleteImg = () => {
         setInputValue({ ...inputValue, urlImage: '' })
     }
-    const handleChangeContent = (content) => {
-        setInputValue({ ...inputValue, content })
+    const handleChangeContent = (description) => {
+        setInputValue({ ...inputValue, description })
     }
     const [hideText, setHideText] = useState(false)
     const openMenu = props.openMenu;
@@ -199,14 +198,14 @@ export default function DashboardNewsCreate(props) {
                     </div>
                     <div style={{ border: '1px #ddd solid' }}>
                         <DashboardEditor
-                            newsContent={inputValue?.content}
+                            newsContent={inputValue?.description}
                             setNewsContent={handleChangeContent}
                         />
                     </div>
                     <div className="flex-center-dashboard" style={{ marginTop: '40px' }}>
                         <button className="create-box-btn btn">
                             Edit Poster
-                    </button>
+                        </button>
                     </div>
                 </form>
             </div>

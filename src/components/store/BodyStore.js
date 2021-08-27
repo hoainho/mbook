@@ -11,7 +11,7 @@ export default function BodyStore(props) {
     const dispatch = useDispatch()
     const products = useSelector(state => state.product)
     useEffect(() => {
-        requestAPI('/product/get', 'GET')
+        requestAPI('/product', 'GET')
             .then(res => {
                 if (res) {
                     setProductList(res.data)

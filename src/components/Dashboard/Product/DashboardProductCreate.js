@@ -26,8 +26,8 @@ export default function DashboardProductCreate(props) {
             hot: false,
             sale: false,
             priceOld: '',
-            pricePresent: '',
-            authorName: '',
+            priceSale: '',
+            idAuthor: '',
             createddate: ''
         }
     )
@@ -72,7 +72,7 @@ export default function DashboardProductCreate(props) {
     }
 
     useEffect(() => {
-        requestAPI('/category/get', 'GET')
+        requestAPI('/category', 'GET')
             .then(res => {
                 if (res) {
                     setCate(res.data)
@@ -83,7 +83,7 @@ export default function DashboardProductCreate(props) {
                     console.log('ERROR :' + err);
                 }
             })
-        requestAPI('/author/get', 'GET')
+        requestAPI('/author', 'GET')
             .then(res => {
                 if (res) {
                     setAuthor(res.data)
@@ -95,17 +95,28 @@ export default function DashboardProductCreate(props) {
                 }
             })
     }, [])
-
+    useEffect(() => {
+        requestAPI('/category', 'GET')
+            .then(res => {
+                if (res) {
+                    setCate(res.data)
+                }
+            })
+            .catch(err => {
+                if (err.response) {
+                    console.log('ERROR :' + err);
+                }
+            })
+    }, [cate])
     const onSubmit = (event) => {
         event.preventDefault()
         inputValue.createddate = new Date();
-        console.log({ inputValue });
-        if (inputValue.pricePresent !== "") {
+        if (inputValue.priceSale !== "") {
             inputValue.sale = true
         } else {
             inputValue.sale = false
         }
-        requestAPI('/product/upload', 'POST', inputValue, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI('/product', 'POST', inputValue, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     notificationCustom("Thông Báo", `Thêm Sản Phẩm thành công  `, "success")
@@ -117,7 +128,7 @@ export default function DashboardProductCreate(props) {
                     if (err.response.status === 403) {
                         notificationCustom("Nhắc Nhở", `Bạn không đủ quyền `, "warning")
                     }
-                    if (err.response.status === 500) {
+                    if (err.response.status === 500 || err.response.status === 400) {
                         notificationCustom("Nhắc Nhở", `Vui lòng nhập thông tin theo đúng yêu cầu`, "warning")
                     }
                 }
@@ -125,7 +136,7 @@ export default function DashboardProductCreate(props) {
     }
 
     const addNewCate = () => {
-        requestAPI('/category/upload', 'POST', { name: inputValue.cate }, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI('/category', 'POST', { name: inputValue.cate }, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     notificationCustom("Thông Báo", `Thêm Thể Loại thành công  `, "success")
@@ -301,13 +312,13 @@ export default function DashboardProductCreate(props) {
                         <div className="dashboard-left flex">Tác Giả :  </div>
                         <div className="dashboard-right">
                             <select style={{ width: "30%", marginRight: "5%" }}
-                                onChange={(event) => { setInputValue({ ...inputValue, authorName: event.target.value }) }}
-                                value={inputValue?.authorName}>
+                                onChange={(event) => { setInputValue({ ...inputValue, idAuthor: event.target.value }) }}
+                                value={inputValue?.idAuthor}>
                                 <option></option>
                                 {author.length > 0 &&
                                     author.map(item => {
                                         return (
-                                            <option key={item?.id}>{item?.name}</option>
+                                            <option value={item?.idAuthor} >{item?.name}</option>
                                         )
                                     })
                                 }
@@ -325,7 +336,7 @@ export default function DashboardProductCreate(props) {
                     <div className="create-box-row flex">
                         <div className="dashboard-left flex">Giá Sale : </div>
                         <div className="dashboard-right">
-                            <input type="number" name="pricePresent" placeholder="VNĐ" onChange={handleOnChange} ></input>
+                            <input type="number" name="priceSale" placeholder="VNĐ" onChange={handleOnChange} ></input>
                         </div>
 
                     </div>
@@ -334,13 +345,13 @@ export default function DashboardProductCreate(props) {
                         <div className="dashboard-left flex">Thể Loại </div>
                         <div className="dashboard-right flex-center-dashboard">
                             <select style={{ width: "350px" }}
-                                onChange={(event) => { setInputValue({ ...inputValue, category: event.target.value }) }}
-                                value={inputValue.category}>
+                                onChange={(event) => { setInputValue({ ...inputValue, CategoryProducts: [{ idCategory: event.target.value }] }) }}
+                                value={inputValue.idCategory}>
                                 <option></option>
                                 {cate.length > 0 &&
                                     cate.map(item => {
                                         return (
-                                            <option key={item?.id}>{item?.name}</option>
+                                            <option value={item?.idCategory} key={item?.idCategory}>{item?.name}</option>
                                         )
                                     })
                                 }

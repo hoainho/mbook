@@ -25,16 +25,15 @@ export default function BlogDetails(props) {
     }
 
     useEffect(() => {
-        requestAPI(`/poster/details/${idBlogDetails}`, 'GET')
+        requestAPI(`/poster/${idBlogDetails}`, 'GET')
             .then(res => {
                 if (res) {
-                    console.log({ data: res.data });
-                    res.data.listlike.map(item => {
-                        if (item.fullname === localStorage.getItem('USERNAME')) {
+                    res.data.listLikes?.map(item => {
+                        if (item.idAccountNavigation.fullname === localStorage.getItem('USERNAME')) {
                             setStatusLiked(true);
                         }
                     })
-                    setLiked(res.data.listlike)
+                    setLiked(res.data.listLikes)
                     setBlogDetails(res.data)
                 }
             })
@@ -45,11 +44,10 @@ export default function BlogDetails(props) {
     const handleLike = () => {
         let newValue = statusLiked;
         newValue = !newValue;
-        console.log(blogDetails);
-        requestAPI(`/poster/likes/${idBlogDetails}`, 'POST', null, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/poster/likes/${idBlogDetails}`, 'PUT', null, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
-                    setLiked(res.data.listlike)
+                    setLiked(res.data.listLikes)
                     if (res.status === 202) {
                         setStatusLiked(false);
                         return;
@@ -58,12 +56,13 @@ export default function BlogDetails(props) {
                 }
             })
             .catch(err => {
-                if (err.response.status === 403) {
+                if (err.response.status === 401) {
                     notificationCustom("Nhắc Nhở", `Vui lòng đăng nhập để thực hiện chắc năng này`, "warning")
                 }
             })
 
     }
+    console.log({ blogDetails });
     return (
         <div className="container-wrapper">
             <div className="blogDetails">
@@ -90,11 +89,11 @@ export default function BlogDetails(props) {
                         </span>
                         <div className="blogDetails__wrapper-header-tag">
 
-                            {blogDetails.categoryId && blogDetails.categoryId.map((category, key) => {
+                            {blogDetails.categoryPosters && blogDetails.categoryPosters.map((category, key) => {
                                 return (
                                     <span key={key} className="blogDetails__wrapper-header-tag-category">
                                         <i class="fa fa-tag" aria-hidden="true"></i>
-                                        <span>{category.name}</span>
+                                        <span>{category.idCategoryNavigation?.name}</span>
                                     </span>
                                 )
                             })}
@@ -107,7 +106,7 @@ export default function BlogDetails(props) {
                         <div className="blogDetails__wrapper-container-content">
                             <h3 className="blogDetails__wrapper-container-content-title">{blogDetails?.sub}</h3>
                             <p className="blogDetails__wrapper-container-content-text">
-                                {blogDetails?.content}
+                                {blogDetails?.description}
                             </p>
                         </div>
                     </div>
@@ -124,10 +123,16 @@ export default function BlogDetails(props) {
                                 <div className={classname("action__interface-actived-likes", { "action__interface-actived-likes liked-active": statusLiked })} onClick={handleLike}>
                                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                     <span className="action__interface-actived-likes-quantity">
-                                        <span className="action__interface-actived-likes-quantity-number"> {liked?.length > 1
+                                        {/* <span className="action__interface-actived-likes-quantity-number"> {liked?.length > 1
                                             ? `${statusLiked ? `Bạn và ${liked?.length - 1}` : `${liked[0].fullname} và ${liked?.length - 1}`} người khác`
                                             : liked?.length === 1
                                                 ? `${statusLiked ? `Bạn` : `${liked[0].fullname}`}`
+                                                : `${statusLiked ? `Bạn` : ``}`
+                                        } </span> */}
+                                        <span className="action__interface-actived-likes-quantity-number"> {liked?.length > 1
+                                            ? `${statusLiked ? `Bạn và ${liked?.length - 1}` : `${liked[0].idAccountNavigation.fullname} và ${liked?.length - 1}`} người khác`
+                                            : liked?.length === 1
+                                                ? `${statusLiked ? `Bạn` : `${liked[0].idAccountNavigation.fullname}`}`
                                                 : `${statusLiked ? `Bạn` : ``}`
                                         } </span>
                                     </span>

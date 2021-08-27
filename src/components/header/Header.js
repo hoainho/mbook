@@ -58,10 +58,10 @@ export default function Navbar(props) {
         if (localStorage.getItem('TOKEN')) {
             setConfirmLogin(true)
             setIsLogin(false)
-            requestAPI(`/cart/get`, 'GET', null, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+            requestAPI(`/cart/Load`, 'GET', null, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
                 .then(res => {
                     if (res) {
-                        console.log({ res: res.data });
+                        console.log({ CartLoading: res.data });
                         dispatch(cartReceived(res.data));
                     }
                 })
@@ -96,11 +96,11 @@ export default function Navbar(props) {
         } else if (acc) {
             requestAPI('/account/signin', 'POST', acc)
                 .then(res => {
-                    setAPIAccount(res.data)
+                    setAPIAccount(res.data);
                     setConfirmLogin(true);
                     setIsLogin(false);
                     notificationCustom("Thông Báo", `Xin Chào, ${res.data.fullname}`, "success")
-                    localStorage.setItem('TOKEN', res.data.token)
+                    localStorage.setItem('TOKEN', res.data.accessToken)
                     localStorage.setItem('USERNAME', res.data.fullname)
                     window.location.reload();
                 })
@@ -118,18 +118,20 @@ export default function Navbar(props) {
         }
     }
     const handleRegister = (accountRegister) => {
+
         requestAPI('/account/signup', 'POST', accountRegister)
             .then(res => {
-                if (res.data === "Tài Khoản Đã Tồn Tại") {
-                    notificationCustom("Nhắc Nhở", res.data, "warning")
-                    return;
-                }
+
                 notificationCustom("Chúc mừng", `Chào mừng ${accountRegister.fullname} đến với M - book`, "success")
                 setIsRegister(false);
                 setIsLogin(true);
                 dispatch(register(res.data))
             }).catch(err => {
-                notificationCustom("Nhắc Nhở", `Server đang bảo trì`, "warning")
+                if (err.response.status === 409) {
+                    notificationCustom("Nhắc Nhở", `Tài Khoản Đã Tồn Tại`, "warning")
+                } else if (err.response.status === 404) {
+                    notificationCustom("Nhắc Nhở", `Server đang bảo trì`, "warning")
+                }
                 console.log(err);
                 return;
             })
@@ -145,9 +147,8 @@ export default function Navbar(props) {
             notificationCustom("Nhắc Nhở", `Xác nhận mật khẩu chưa trùng khớp`, "warning")
             return;
         }
-        requestAPI('/account/changepassword', 'POST', password, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI('/account/changepassword', 'PUT', password, { Authorization: `bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
-                console.log(res.status);
                 notificationCustom("Thông Báo", `Đổi mật khẩu thành công`, "success")
                 setAPIAccount(res.data)
                 setIsChangePassword(false);

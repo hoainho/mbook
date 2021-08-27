@@ -26,12 +26,12 @@ export default function SocialPost(props) {
                         <h3 className="action__list-comments-name social__post-content-author-name">Anh Da Đen</h3>
                         <span className="social__post-content-author-time">
                             <i class="fa fa-clock-o pr-2" aria-hidden="true"></i> 30 phút trước
-                    </span>
+                        </span>
                     </div>
                     <div className="social__post-content-container">
                         <p className="social__post-content-container-text">
                             Đàn bà là những niềm đau. Anh em dù biết vẫn theo sau đàn bà.
-                    </p>
+                        </p>
                         <div className="social__post-content-container-image">
 
                             <Photogrid

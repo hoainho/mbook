@@ -19,7 +19,7 @@ export default function DashboardUserTable(props) {
     const [isSortByTotal, setIsSortByTotal] = useState(false)
     const [constOrder, setConstOrder] = useState([])
     useEffect(() => {
-        requestAPI(`/order/get`, 'GET')
+        requestAPI(`/order`, 'GET')
             .then(res => {
                 console.log({ order: res.data });
                 setOrder(res.data)
@@ -108,7 +108,7 @@ export default function DashboardUserTable(props) {
     }
 
     const deleteOnClick = (id) => {
-        requestAPI(`/order/delete/${id}`, 'DELETE', id, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/order/${id}`, 'DELETE', id, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     notificationCustom("Thông Báo", `Xóa thành công  `, "success")
@@ -250,7 +250,7 @@ export default function DashboardUserTable(props) {
                                             <td className="mobile-table-orderinfo">
                                                 <ul style={{ margin: '10px 0' }}>
                                                     <li className="flex" style={{ display: "flex !important", flexWrap: "wrap" }}>
-                                                        <p style={{ marginRight: '5px', fontWeight: 'bold', wordWrap: 'break-word', WebkitLineClamp: '3' }}>#{item.id}</p>
+                                                        <p style={{ marginRight: '5px', fontWeight: 'bold', wordWrap: 'break-word', WebkitLineClamp: '3' }}>#{item.idOrder}</p>
                                                         <p className="mobile-table-name">by {item.fullname}</p>
                                                     </li>
                                                 </ul>
@@ -289,24 +289,24 @@ export default function DashboardUserTable(props) {
                                                 <div className="action-table flex">
                                                     <div
                                                         className="action-item flex-center-dashboard action-primary"
-                                                        onClick={() => getDetails(item.id)}
-                                                        id={item.id}
+                                                        onClick={() => getDetails(item.idOrder)}
+                                                        id={item.idOrder}
                                                     >
                                                         <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faEye} />
                                                     </div>
-                                                    <div
+                                                    {/* <div
                                                         className="action-item flex-center-dashboard action-green"
                                                         // onClick={props.setOpenEditFunc}
                                                         id={item.id}
                                                     >
                                                         <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faPencilAlt} />
-                                                    </div>
-                                                    <div
+                                                    </div> */}
+                                                    {/* <div
                                                         className="action-item flex-center-dashboard action-red"
                                                         onClick={() => deleteOnClick(item.id)}
                                                     >
                                                         <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faTimes} />
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                             </td>
                                         </tr>

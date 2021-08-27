@@ -16,7 +16,7 @@ export default function Author() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(findByAuthor(idAuthor))
-        requestAPI(`/author/details/${idAuthor}`, 'GET')
+        requestAPI(`/author/${idAuthor}`, 'GET')
             .then(res => {
                 setDetails(res.data)
                 console.log({ data: res.data });

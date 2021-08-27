@@ -15,7 +15,7 @@ export default function ScreenHome() {
     const dispatch = useDispatch();
     useEffect(() => {
         window.scrollTo(0, 0);
-        requestAPI(`/cart/get`, 'GET', null, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/cart/Load`, 'GET', null, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     dispatch(cartReceived(res.data));

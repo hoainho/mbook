@@ -18,7 +18,7 @@ export default function DashboardUserTable(props) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        requestAPI(`/account/get`, 'GET', null, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/account/getaccounts`, 'GET', null, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 console.log({ account: res.data });
                 setUser(res.data)
@@ -107,7 +107,7 @@ export default function DashboardUserTable(props) {
     }
 
     const deleteAccount = (id) => {
-        requestAPI(`/account/delete/${id}`, 'DELETE', id, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/account/DeleteAccount/${id}`, 'DELETE', null, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
                     notificationCustom("Thông Báo", `Xóa thành công  `, "success")
@@ -120,7 +120,9 @@ export default function DashboardUserTable(props) {
                         notificationCustom("Nhắc Nhở", `Bạn không đủ quyền `, "warning")
                     }
                     if (err.response.status === 500) {
-                        notificationCustom("Nhắc Nhở", `Vui lòng nhập thông tin theo đúng yêu cầu`, "warning")
+                        notificationCustom("Nhắc Nhở", `Tài Khoản Này Đang Có Sản Phẩm Trong Giỏ Hàng, Bạn Chắc Chắn Muốn Xóa ?
+                         \n (Nếu Muốn Xóa Bạn Có Thể Xóa Giỏ Hàng Của Người Này || Hoặc Vô Hiệu Hóa !)
+                         `, "danger")
                     }
                 }
             })
@@ -232,7 +234,7 @@ export default function DashboardUserTable(props) {
                                                 />
                                             </td> */}
                                             <td>
-                                                <p width="20%" height="80px" style={{ padding: '5px 0', borderRadius: '50%' }}>#{item.id} </p>
+                                                <p width="20%" height="80px" style={{ padding: '5px 0', borderRadius: '50%' }}>#{item.idAccount} </p>
                                             </td>
                                             <td>
                                                 <p>{item.fullname}</p>
@@ -247,7 +249,7 @@ export default function DashboardUserTable(props) {
                                                 <p>{item.roleid === true ? 'admin' : 'user'}</p>
                                             </td>
                                             <td className="table-mobile-useraddress">
-                                                <p>{item.status === true ? 'Kích hoạt' : 'Vô hiệu hóa'}</p>
+                                                <p>{item.status === false ? 'Kích hoạt' : 'Vô hiệu hóa'}</p>
                                             </td>
                                             <td>
                                                 <div className="action-table flex">
@@ -259,7 +261,7 @@ export default function DashboardUserTable(props) {
                                                     </div>
                                                     <div
                                                         className="action-item flex-center-dashboard action-red"
-                                                        onClick={() => deleteAccount(item.id)}
+                                                        onClick={() => deleteAccount(item.idAccount)}
                                                     >
                                                         <FontAwesomeIcon style={{ pointerEvents: 'none' }} icon={faTimes} />
                                                     </div>

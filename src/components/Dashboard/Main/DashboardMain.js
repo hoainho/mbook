@@ -27,18 +27,18 @@ export default function DashboardMain() {
     const [incomeMonthPercent, setIncomeMonthPercent] = useState({})
 
     useEffect(() => {
-        requestAPI('/product/get', 'GET')
+        requestAPI('/product', 'GET')
             .then(res => {
                 if (res) {
                     setProducts(res.data)
                     let virtualProducts = [...res.data]
                     console.log({ virtualProducts });
-                    virtualProducts.sort((a, b) => b.productSold - a.productSold)
+                    virtualProducts.sort((a, b) => b.quantity - a.quantity)
                     let virtualProducts2 = []
                     for (let i in virtualProducts) {
                         let data = {
                             ...virtualProducts[i],
-                            count: virtualProducts[i].productSold
+                            count: virtualProducts[i].quantity
                         }
                         virtualProducts2.push(data)
                     }
@@ -50,7 +50,7 @@ export default function DashboardMain() {
                     console.log('ERROR :' + err);
                 }
             })
-        requestAPI(`/account/get`, 'GET')
+        requestAPI(`/account/getaccounts`, 'GET')
             .then(res => {
                 if (res) {
                     setUser(res.data)
@@ -59,7 +59,7 @@ export default function DashboardMain() {
             .catch(err => {
                 console.log("Faild from server : ", err);
             })
-        requestAPI('/order/get', 'GET')
+        requestAPI('/order', 'GET')
             .then(res => {
                 setOrder(res.data)
                 const customerList = Object.values(res.data.reduce((a, { createdby, id, total, numberPhone }) => {
@@ -73,8 +73,9 @@ export default function DashboardMain() {
 
                 var totalIncome = 0;
                 var totalSale = 0;
+                console.log({ total: res.data });
                 for (let i in res.data) {
-                    totalSale += res.data[i].totalMoneyProduct
+                    totalSale += res.data[i].total
                 }
                 totalIncome = (totalSale * 25) / 100 // lời 25%
                 setTotalSale(totalSale)

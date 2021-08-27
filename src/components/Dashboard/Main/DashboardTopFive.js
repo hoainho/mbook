@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export default function DashboardTopFive(props) {
 
     const data = props.data
-    console.log({ dataPro: data });
     return (
         <div className="topfive flex-col">
             <div className={`headerbox flex-center-dashboard ${props.color}`}>
@@ -30,21 +29,20 @@ export default function DashboardTopFive(props) {
                                 })
                             }
                         </div>
-                        {data &&
-                            data.slice(0, 5).map((item, index) => {
-                                return (
-                                    <div
-                                        key={index}
-                                        className="top-location-div topfive-div flex"
-                                    >
-                                        <div style={{ width: '80%', textAlign: 'left' }} className="top-user flex">
-                                            {/* <img src={item.orderAvatar || item.productImg[1]} className="top-user-avt" alt=""></img> */}
-                                            <p className="top-user-name">{item.name || item.createdby}</p>
-                                        </div>
-                                        <div style={{ width: '80px', textAlign: 'center' }}>{item.quantity || item.count}</div>
+                        {data && data.slice(0, 5).map((item, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className="top-location-div topfive-div flex"
+                                >
+                                    <div style={{ width: '80%', textAlign: 'left' }} className="top-user flex">
+                                        {/* <img src={item.orderAvatar || item.productImg[1]} className="top-user-avt" alt=""></img> */}
+                                        <p className="top-user-name">{item.name || item.createdby}</p>
                                     </div>
-                                )
-                            })
+                                    <div style={{ width: '80px', textAlign: 'center' }}>{item.quantity || item.count}</div>
+                                </div>
+                            )
+                        })
                         }
                     </div>
                 </div>

@@ -5,14 +5,12 @@ import { Checkbox } from 'antd';
 import 'react-notifications-component/dist/theme.css'
 import notificationCustom from '../../notification';
 import { useSelector } from 'react-redux';
-
-import requestAPI from '../../api';
 export default function HeaderControl(props) {
     const [account, setAccount] = useState({ username: '', password: '' })
     const [fullNameDisplay, setFullNameDisplay] = useState()
     const [changePassword, setChangePassword] = useState({ passwordOld: '', passwordNew: '', repeatpasswordNew: '' })
     const [accountRegister, setAccountregister] = useState(
-        { fullname: '', username: '', password: '', repeatpassword: '', roleid: false, status: true });
+        { fullname: '', username: '', password: '', repeatpassword: '', roleid: false, status: false });
     const [ckbRule, setCkbRule] = useState(false)
     const handleIsLogin = props.handleIsLogin
     const isChangePassword = props.isChangePassword
@@ -30,6 +28,8 @@ export default function HeaderControl(props) {
     const cartLength = useSelector((state) => state.cart.numberCart)
     useEffect(() => {
         setFullNameDisplay(localStorage.getItem('USERNAME'))
+        console.log({ cartLength });
+        console.log({ cart });
     }, [localStorage.getItem('USERNAME')])
     const handleChange = (event) => {
         setAccount({
@@ -50,6 +50,7 @@ export default function HeaderControl(props) {
         })
     }
     const handleRegister = (accountRegister) => {
+        accountRegister.createddate = new Date();
         if (!ckbRule) {
             notificationCustom("Nhắc Nhở", `Vui lòng chấp nhận điều khoản của M-book`, "warning")
             return;
@@ -178,19 +179,19 @@ export default function HeaderControl(props) {
                             </div>
                             {/* List Product  */}
                             <ul className="shopping-cart-items">
-                                {cart?.listProduct && cart.listProduct.map(item => {
+                                {cart?.detailCarts && cart.detailCarts.map(item => {
                                     return (
                                         <li key={item.id} className="shopping-cart-items-item clearfix">
-                                            <img src={item.imageBef} alt="item1" />
+                                            <img src={item.idProductNavigation?.imageBef} alt="ImageMinisize" />
                                             <div>
-                                                <span className="item-name">{item.name}</span>
-                                                <span className="item-detail">{item.author?.name}</span>
+                                                <span className="item-name">{item.idProductNavigation?.name}</span>
+                                                <span className="item-detail">{item.idProductNavigation?.IdAuthorNavigation?.name}</span>
                                                 <span className="item-price">
-                                                    {item.pricePresent
-                                                        ? item.pricePresent?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-                                                        : item.priceOld?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ
+                                                    {item.idProductNavigation?.priceSale
+                                                        ? item.idProductNavigation?.priceSale?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                                                        : item.idProductNavigation?.priceOld?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ
                                                 </span>
-                                                <span className="item-detail">x {item.quantity}</span>
+                                                <span className="item-detail">x {item?.quantity}</span>
                                             </div>
 
                                         </li>

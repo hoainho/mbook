@@ -18,6 +18,7 @@ export const productSlice = createSlice({
             state.productEdit = { ...state.productEdit, product: payload }
         },
         filter: (state, action) => {
+            console.log({ filter: state.productList });
             if (action.payload === "0") {
                 state.productFilter = state.productList
             } else if (action.payload === "1") {
@@ -37,8 +38,8 @@ export const productSlice = createSlice({
             } else if (action.payload.type === "category") {
                 state.productFilter = []
                 state.productList.map(item => {
-                    if (item.categoryId[0]?.name === action.payload.value) {
-                        console.log(item.categoryId[0]?.name);
+                    if (item.categoryProducts[0]?.idCategoryNavigation?.name === action.payload.value) {
+                        console.log(item.categoryProducts[0]?.idCategoryNavigation?.name);
                         console.log("true");
                         state.productFilter.push(item);
                     } else if (action.payload.value === "all") {
@@ -48,7 +49,7 @@ export const productSlice = createSlice({
             } else if (action.payload.type === "author") {
                 state.productFilter = []
                 state.productList.map(item => {
-                    if (item.author.name === action.payload.value) {
+                    if (item.idAuthorNavigation?.name === action.payload.value) {
                         state.productFilter.push(item);
                     } else if (action.payload.value === "all") {
                         state.productFilter = state.productList
@@ -57,7 +58,7 @@ export const productSlice = createSlice({
             } else if (action.payload.type === "price") {
                 state.productFilter = []
                 state.productList.map(item => {
-                    let price = item.pricePresent ? item.pricePresent : item.priceOld
+                    let price = item.priceSale ? item.priceSale : item.priceOld
                     if (price >= action.payload.value[0]
                         && price <= action.payload.value[1]) {
                         console.log("name :", item.name, " - ", price);
@@ -69,7 +70,7 @@ export const productSlice = createSlice({
         },
         findByAuthor: (state, action) => {
             state.productList.map(item => {
-                if (item.author.id === action.payload) {
+                if (item.idAuthorNavigation?.id === action.payload) {
                     state.productByAuthor.push(item);
                 }
             })

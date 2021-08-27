@@ -8,7 +8,7 @@ export default function DashboardOrderCreate(props) {
     const [orderInfo, setOrderInfo] = useState();
     const orderState = useSelector(state => state.order)
     useEffect(() => {
-        requestAPI(`/order/details/${orderState?.idView}`, 'GET')
+        requestAPI(`/order/${orderState?.idView}`, 'GET')
             .then(res => {
                 setOrderInfo(res.data)
                 console.log({ data: res.data });
@@ -44,8 +44,8 @@ export default function DashboardOrderCreate(props) {
                         <div style={{ display: 'flex', alignItems: 'center', width: '30%' }}>
                             Mã Giảm Giá :
                             <p style={{ fontWeight: "bold" }}>
-                                {orderInfo?.codeDiscount
-                                    ? orderInfo.codeDiscount.name
+                                {orderInfo?.idDiscountNavigation
+                                    ? orderInfo.idDiscountNavigation.code
                                     : ' Không có'
                                 }</p>
                         </div>
@@ -54,29 +54,32 @@ export default function DashboardOrderCreate(props) {
                         <div style={{ display: 'flex', alignItems: 'center', width: '30%' }}>
                             Tổng Tiền Giảm Giá :
                             <p style={{ fontWeight: "bold" }}>
-                                {orderInfo?.codeDiscount
-                                    ? (orderInfo.codeDiscount.type === false //ship
-                                        ? `${orderInfo.codeDiscount.money?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ`
-                                        : `${orderInfo.codeDiscount.money}%`)
+                                {orderInfo?.idDiscountNavigation
+                                    ? (orderInfo.idDiscountNavigation.type === false //ship
+                                        ? `${orderInfo.idDiscountNavigation.money?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ`
+                                        : `${orderInfo.idDiscountNavigation.money}%`)
                                     : ' Không có'
                                 }</p>
                         </div>
                     </div>
                     <div className="create-box-row flex">
-                        <div className="dashboard-right">
+                        <div className="dashboard-right" style={{ width: "100%" }}>
                             <div className="" style={{ overflowY: 'hidden', flexWrap: 'wrap' }}>
                                 {orderInfo &&
-                                    orderInfo?.bill.listProduct.map((item, index) => {
+                                    orderInfo?.idBillNavigation.detailCarts.map((item, index) => {
                                         return (
                                             <div
                                                 key={index}
                                                 className="order-list-item"
                                             >
-                                                <p style={{ fontWeight: "bold", width: '15%' }}>  #{index + 1} </p>
-                                                <img src={item.imageBef} alt="imageProduct"></img>
-                                                <p style={{ fontWeight: "bold", width: '40%' }}>  {item.name}</p>
-                                                <div style={{ display: 'flex', alignItems: 'center', width: '20%' }}>
+                                                <p style={{ fontWeight: "bold", width: '15%' }}>  <p class="index-circle">#{index + 1}</p> </p>
+                                                <img src={item?.idProductNavigation?.imageBef} alt="imageProduct"></img>
+                                                <p style={{ fontWeight: "bold", width: '40%' }}>  {item?.idProductNavigation?.name}</p>
+                                                <div style={{ display: 'flex', alignItems: 'center', width: '15%' }}>
                                                     Số Lượng : <p style={{ fontWeight: "bold" }}>{item.quantity}</p>
+                                                </div>
+                                                <div style={{ display: 'flex', alignItems: 'center', width: '20%', whiteSpace: "nowrap", justifyContent: " space-between" }}>
+                                                    Tổng Tiền : <p style={{ fontWeight: "bold" }}>{item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</p>
                                                 </div>
                                             </div>
                                         )

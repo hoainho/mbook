@@ -3,7 +3,7 @@ import { Table, Input, Button, } from 'antd';
 import { MinusCircleOutlined, PlusCircleOutlined, GiftOutlined, CheckCircleOutlined, RetweetOutlined } from '@ant-design/icons';
 import ButtonCustom from '../../features/button';
 import { useSelector } from 'react-redux';
-import { deleteItem, increarse, decrearse, discount, cartCheckout, cartReceived } from '../../features/cart/CartSlice';
+import { deleteItem, increarse, decrearse, discount, addToCart, cartCheckout, cartReceived } from '../../features/cart/CartSlice';
 import { useDispatch } from 'react-redux';
 import notificationCustom from '../../notification/index';
 import classnames from 'classname'
@@ -35,7 +35,6 @@ export default function Cart() {
         }
     ]
     useEffect(() => {
-        console.log({ listCode });
         let totalDiscount = 0
         let total = 0
         setTotalMoneyProduct(data.totalPrice)
@@ -48,16 +47,14 @@ export default function Cart() {
             }
             setDiscountMoney(totalDiscount);
         }
-        console.log(totalDiscount);
         total = (data.totalPrice + moneyShip) - totalDiscount
         setTotalBill(total)
 
     }, [LengthCart, listCode])
     useEffect(() => {
-        requestAPI(`/cart/get`, 'GET', null, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/cart/load`, 'GET', null, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
-                    console.log({ res: res.data });
                     dispatch(cartReceived(res.data));
                 }
             })
@@ -77,18 +74,22 @@ export default function Cart() {
         {
             title: 'Tên',
             dataIndex: 'name',
-            key: "name"
+            key: "name",
+            render: (value, record) => {
+                let name = record.idProductNavigation?.name;
+                return (<p>{name ? name : 'null'}</p>)
+            }
         },
         {
             title: 'Giá ',
-            dataIndex: '.pricePresent' ? 'pricePresent' : 'priceOld',
+            dataIndex: '.priceSale' ? 'priceSale' : 'priceOld',
             key: "price",
             sorter: {
-                compare: (a, b) => a.pricePresent - b.pricePresent,
+                compare: (a, b) => a.idProductNavigation?.priceSale - b.idProductNavigation?.priceSale,
                 multiple: 3,
             },
             render: (value, record) => {
-                let price = record.pricePresent ? record.pricePresent : record.priceOld;
+                let price = record.idProductNavigation?.priceSale ? record.idProductNavigation?.priceSale : record.idProductNavigation?.priceOld;
                 return (<p>{price
                     ? price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
                     : 'null'} đ</p>)
@@ -99,13 +100,20 @@ export default function Cart() {
             dataIndex: 'quantity',
             key: "quantity",
             sorter: {
-                compare: (a, b) => a.quantity - b.quantity,
+                compare: (a, b) => a.idProductNavigation?.quantity - b.idProductNavigation?.quantity,
                 multiple: 2,
             },
             render: (quantity, record) => {
+
                 return (
-                    <div><MinusCircleOutlined onClick={() => dispatch(decrearse(record))} style={{ padding: '0 5px' }} /> {quantity}
-                        <PlusCircleOutlined onClick={() => dispatch(increarse(record))} style={{ padding: '0 5px' }} /></div>)
+                    <div><MinusCircleOutlined onClick={() => dispatch(addToCart({
+                        ...record, quantity: -1, priceOld: record.idProductNavigation.priceOld,
+                        priceSale: record.idProductNavigation.priceSale
+                    }))} style={{ padding: '0 5px' }} /> {quantity}
+                        <PlusCircleOutlined onClick={() => dispatch(addToCart({
+                            ...record, quantity: 1, priceOld: record.idProductNavigation.priceOld,
+                            priceSale: record.idProductNavigation.priceSale
+                        }))} style={{ padding: '0 5px' }} /></div>)
             }
         },
         {
@@ -113,11 +121,17 @@ export default function Cart() {
             dataIndex: 'totalPrice',
             key: "totalPrice",
             sorter: {
-                compare: (a, b) => a.pricePresent ? a.pricePresent : a.priceOld - b.pricePresent ? b.pricePresent : b.priceOld,
+                compare: (a, b) => a.idProductNavigation?.priceSale ?
+                    a.idProductNavigation?.priceSale :
+                    a.idProductNavigation?.priceOld - b.idProductNavigation?.priceSale ?
+                        b.idProductNavigation?.priceSale :
+                        b.idProductNavigation?.priceOld,
                 multiple: 4,
             },
             render: (totalPrice, sord) => {
-                let price = sord.quantity * (sord.pricePresent ? sord.pricePresent : sord.priceOld);
+                let price = sord?.quantity * (sord.idProductNavigation?.priceSale ?
+                    sord.idProductNavigation?.priceSale :
+                    sord.idProductNavigation?.priceOld);
                 return (
                     <p>{price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} đ</p>
 
@@ -141,11 +155,11 @@ export default function Cart() {
     }
     const handleGetDiscount = (code) => {
         console.log({ Discount });
-        var index = Discount ? Discount.map((item) => item.name).indexOf(code) : -1;
+        var index = Discount ? Discount.map((item) => item.code).indexOf(code) : -1;
         if (index !== -1) {
             if (listCode) {
                 console.log('code exist');
-                if (listCode.name === code) {
+                if (listCode.code === code) {
                     notificationCustom("Thông Báo", `Mã Giảm Giá '${code}' Đã Được Áp Dụng`, "warning")
                 } else {
                     notificationCustom("Thông Báo", `Mã Giảm Giá '${code}' Hợp Lệ`, "success")
@@ -166,31 +180,34 @@ export default function Cart() {
         setInfoBill({ ...infoBill, [e.target.name]: e.target.value })
     }
     const handleOrder = (event) => {
+        console.log({ idBill: data });
         event.preventDefault();
-        let bill = { ...infoBill, createddate: new Date(), idCart: data?.id, discount: listCode?.id, total: totalBill, totalMoneyProduct, ship: moneyShip, quantity: LengthCart }
+        let bill = { ...infoBill, createddate: new Date(), IdDiscountNavigation: { idDiscount: listCode?.idDiscount }, idBill: data?.idCart, idDiscount: listCode?.idDiscount, total: totalBill, totalMoneyProduct, ship: moneyShip, quantity: LengthCart }
         console.log({ bill });
-        requestAPI(`/order/upload`, 'POST', bill, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
+        requestAPI(`/order`, 'POST', bill, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
             .then(res => {
                 if (res) {
-                    console.log({ response: res.data });
+                    notificationCustom("Thông Báo", `Đặt Hàng Thành Công`, "success")
+                    dispatch(cartCheckout());
+                    setIsBill(false);
                     ////////////////////////////////
-                    requestAPI(`/cart/checkout/${data.id}/${res.data.id}`, 'PUT', bill, { Authorization: `Bearer-${localStorage.getItem('TOKEN')}` })
-                        .then(res => {
-                            console.log({ response: res.data });
-                            notificationCustom("Thông Báo", `Đặt Hàng Thành Công`, "success")
-                            setIsBill(false);
-                            dispatch(cartCheckout());
-                        })
-                        .catch(err => {
-                            if (err.response) {
-                                if (err.response.status === 403) {
-                                    notificationCustom("Nhắc Nhở", `Chứng thực tài khoản đã hết hạn, vui lòng đăng nhập lại để thực hiện các chức năng `, "warning")
-                                }
-                                if (err.response.status === 500) {
-                                    notificationCustom("Nhắc Nhở", `Vui lòng nhập thông tin theo đúng yêu cầu`, "warning")
-                                }
-                            }
-                        })
+                    // requestAPI(`/cart/${data.id}`, 'PUT', bill, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
+                    //     .then(res => {
+                    //         console.log({ response: res.data });
+                    //         notificationCustom("Thông Báo", `Đặt Hàng Thành Công`, "success")
+                    //         setIsBill(false);
+                    //         dispatch(cartCheckout());
+                    //     })
+                    //     .catch(err => {
+                    //         if (err.response) {
+                    //             if (err.response.status === 403) {
+                    //                 notificationCustom("Nhắc Nhở", `Chứng thực tài khoản đã hết hạn, vui lòng đăng nhập lại để thực hiện các chức năng `, "warning")
+                    //             }
+                    //             if (err.response.status === 500) {
+                    //                 notificationCustom("Nhắc Nhở", `Vui lòng nhập thông tin theo đúng yêu cầu`, "warning")
+                    //             }
+                    //         }
+                    //     })
                 }
             })
             .catch(err => {
@@ -208,7 +225,7 @@ export default function Cart() {
         <div className="container-wrapper">
             <Table
                 columns={columns}
-                dataSource={data.listProduct}
+                dataSource={data.detailCarts}
                 onChange={onChange}
                 pagination={false}
                 expandable={{
@@ -221,7 +238,7 @@ export default function Cart() {
                     <Input value={txtDiscount} onChange={handleDiscount} size="large" placeholder="Nhập mã khuyến mãi" prefix={<GiftOutlined />} />
                     <Button onClick={() => handleGetDiscount(txtDiscount)} type="primary" shape="round" icon={<CheckCircleOutlined />} size="large">
                         Gửi Mã Giảm Giá
-                     </Button>
+                    </Button>
                 </div>
                 {/* <Button type="primary" shape="round" icon={<RetweetOutlined />} size="large">
                     Cập Nhật
@@ -232,7 +249,7 @@ export default function Cart() {
                     <div className="cart__wrapper-title">
                         <h3 className=" cart__wrapper-title-text">
                             Tổng Đơn Hàng
-                    </h3>
+                        </h3>
                     </div>
                     <div className="cart__wrapper-content">
                         <div className="cart__wrapper-content-item">

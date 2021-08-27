@@ -14,7 +14,7 @@ export default function FilterStore(props) {
     const dispatch = useDispatch();
     // const { girdTab } = props
     useEffect(() => {
-        requestAPI('/category/get', 'GET')
+        requestAPI('/category', 'GET')
             .then(res => {
                 if (res) {
                     setCate(res.data)
@@ -26,7 +26,7 @@ export default function FilterStore(props) {
                     console.log('ERROR :' + err);
                 }
             })
-        requestAPI('/author/get', 'GET')
+        requestAPI('/author', 'GET')
             .then(res => {
                 if (res) {
                     setAuthor(res.data)
@@ -95,7 +95,7 @@ export default function FilterStore(props) {
                             <select className='filterStore__tabMobie-select' onChange={onChangeFilterCate} >
                                 <option value="all">Tất Cả Thể Loại </option>
                                 {cate?.map((item) => {
-                                    return (<option option key={item.id} value={item.name} > { item.name}</option>)
+                                    return (<option option key={item.id} value={item.name} > {item.name}</option>)
 
                                 })}
                                 {/* <option value="tinhcam" >Tình Cảm</option>
@@ -106,7 +106,7 @@ export default function FilterStore(props) {
                             <select className='filterStore__tabMobie-select' onChange={onChangeFilterAuthor}>
                                 <option >Tất Cả Tác Giả </option>
                                 {author?.map((item) => {
-                                    return (<option option key={item.id} value={item.name} > { item.name}</option>)
+                                    return (<option option key={item.id} value={item.name} > {item.name}</option>)
 
                                 })}
                             </select>

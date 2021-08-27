@@ -20,11 +20,23 @@ const ENDPOINT = "http://localhost:3000";
 function Dashboard(props) {
     useEffect(() => {
         if (localStorage.getItem('TOKEN')) {
-            setIsLogin(false)
-            setAdminAccount(localStorage.getItem('USERNAME'))
+            requestAPI('/account/checkJWT', 'POST', null, { Authorization: `Bearer ${localStorage.getItem('TOKEN')}` })
+                .then(res => {
+                    if (res.data) {
+                        setIsLogin(false);
+                    }
+                })
+                .catch(err => {
+                    if (err.response) {
+                        if (err.response.status === 400) {
+                            setIsLogin(true);
+                            notificationCustom("Nhắc Nhở", `Bạn không đủ quyền truy cập vào địa chỉ này`, "warning")
+                        }
+                    }
+                })
+            // setIsLogin(false)
+            // setAdminAccount(localStorage.getItem('USERNAME'))
         }
-        console.log(localStorage.getItem('USERNAME'));
-        console.log(adminAccount);
     }, [])
     const dispatch = useDispatch()
     const [adminAccount, setAdminAccount] = useState()
@@ -95,12 +107,12 @@ function Dashboard(props) {
         if (!acc || !acc.username || !acc.password) {
             notificationCustom("Nhắc Nhở", "Vui lòng nhập đầy đủ các trường", "danger")
         } else if (acc) {
-            requestAPI('/account/dashboard/signin', 'POST', acc)
+            requestAPI('/account/signinDashboard', 'POST', acc)
                 .then(res => {
                     setAdminAccount(res.data)
                     setIsLogin(false);
                     notificationCustom("Thông Báo", `Xin Chào, ${res.data.fullname}`, "success")
-                    localStorage.setItem('TOKEN', res.data.token)
+                    localStorage.setItem('TOKEN', res.data.accessToken)
                     localStorage.setItem('USERNAME', res.data.fullname)
                     // window.location.reload();
                 })
@@ -109,6 +121,12 @@ function Dashboard(props) {
                     if (err.response) {
                         if (err.response.status === 500) {
                             notificationCustom("Nhắc Nhở", `Sai tài khoản hoặc mật khẩu`, "warning")
+                        }
+                        if (err.response.status === 404) {
+                            notificationCustom("Nhắc Nhở", `Sai tài khoản hoặc mật khẩu`, "warning")
+                        }
+                        if (err.response.status === 401) {
+                            notificationCustom("Nhắc Nhở", `Bạn không đủ quyền truy cập vào địa chỉ này`, "warning")
                         }
                         if (err.response.status === 304) {
                             notificationCustom("Nhắc Nhở", `Bạn không đủ quyền truy cập vào địa chỉ này`, "warning")
@@ -179,7 +197,7 @@ function Dashboard(props) {
         <div>
             <Notification />
             <ReactNotification />
-            { isLogin
+            {isLogin
                 ?
                 <div className="Dashboard" style={{
                     height: "100vh",

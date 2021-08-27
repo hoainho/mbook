@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Photogrid from "react-facebook-photo-grid";
 import CommentItem from '../blog/CommentItem';
-import Comments from '../blog/BlogComment_Fix'
+import Comments from '../blog/BlogComment'
 export default function SocialPost(props) {
     const [scale, setScale] = useState(false)
     var avatar = props.avatar;

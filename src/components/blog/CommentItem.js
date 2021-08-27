@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Comments from './BlogComment_Fix'
+import Comments from './BlogComment'
 import classname from 'classname'
 export default function CommentItem(props) {
 

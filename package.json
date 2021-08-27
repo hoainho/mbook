@@ -45,12 +45,12 @@
     "redux": "^4.0.5",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.0.0",
-    "vanilla-tilt": "^1.7.0"
+    "vanilla-tilt": "^1.7.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "sasstocss": "node-sass ./public/sass/index.scss ./public/css/index.css -w",
-    "build": "react-scripts build",
+    "build": "CI= react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -4,10 +4,10 @@ import imgBlog2 from './blog2.jpg'
 import avatarCmt from './avatar.jpg'
 import avatarCmt1 from './avatar1.jpg'
 import imgBlog3 from './blog3.jpg'
-import BlogItem from './BlogItem';
+import BlogItem from './BlogItem_Fix';
 import { Link, useLocation, useParams } from 'react-router-dom'
 import CommentItem from './CommentItem';
-import Comments from './BlogComment'
+import Comments from './BlogComment_Fix'
 import requestAPI from '../../api';
 import moment from 'moment'
 import notificationCustom from '../../notification';

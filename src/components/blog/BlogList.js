@@ -1,6 +1,6 @@
 import React from 'react'
 import { Row } from 'antd'
-import BlogItem from './BlogItem';
+import BlogItem from './BlogItem_Fix';
 export default function BlogList(props) {
     const { posters } = props;
     let postersEmpty = []

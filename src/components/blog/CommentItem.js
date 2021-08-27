@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Comments from './BlogComment'
+import Comments from './BlogComment_Fix'
 import classname from 'classname'
 export default function CommentItem(props) {
 
@@ -27,14 +27,14 @@ export default function CommentItem(props) {
                     <h3 className="action__list-comments-name">Anh Da Đen</h3>
                     <span className="action__list-comments-subName">
                         <i class="fas fa-pen-nib"></i>
-                                        Tác Giả
-                                        </span>
+                        Tác Giả
+                    </span>
                     <p className="action__list-comments-content">
                         Hay quá
-                                        </p>
+                    </p>
                     <span className="action__list-comments-date">
                         30 phút trước
-                                        </span>
+                    </span>
                     <div className="action__interface-actived action__list-actived">
                         <div className={classname("action__interface-actived-likes", { "action__interface-actived-likes liked-active": like })} onClick={handleLikeReply}>
                             <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>

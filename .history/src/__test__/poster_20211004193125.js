@@ -1,0 +1,37 @@
+
+import axios from 'axios';
+import requestAPI from '../api/index'
+export default class Poster {
+    // get() {
+    //     return axios.get("http://localhost:8080/poster/get")
+    //         .then(res => res)
+    //     // .catch(err => err.response)
+
+    // }
+    // getPosterById(id) {
+    //     return requestAPI(`/poster/details/${id}`, "GET", null, { Authorization: `Bearer-eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZXYiLCJleHAiOjE2MzMyOTMyMjYsImlhdCI6MTYzMzI1NzIyNn0.rMtpN9uGvUSG_smv8_1MBRJs1omk0kzNxLeL1qh9w6Q` })
+    //         .then(res => res)
+    //         .catch(err => err.response)
+    // }
+    postBlog(data) {
+        data.createddate = new Date();
+        let post = {
+            title: "", sub: "", content: "", categoryCode: [],
+            urlImage: 'http://res.cloudinary.com/remalw/image/upload/v1620066495/m-book/z7ftb1kemz1temydh5c6.jpg'
+        }
+        if (data?.title === "" &&) {
+            return 'Title is valid'
+        } else if (data?.sub?.length < 1) {
+            return 'Sub is valid'
+        } else if (data?.categoryCode?.length < 1) {
+            return 'Category is valid'
+        } else {
+            if (data.urlImage?.length > 0) {
+                post = { ...data }
+            } else {
+                post = { ...data, urlImage: post.urlImage }
+            }
+            return 'Upload post successfully'
+        }
+    }
+}

@@ -78,7 +78,7 @@ describe('UPLOAD POSTER', () => {
         },
         {
             case: 'POST is NULL Value',
-            result: 'Upload post FAILED',
+            result: 'Title is valid',
             post: {
                 title: "",
                 content: "",
